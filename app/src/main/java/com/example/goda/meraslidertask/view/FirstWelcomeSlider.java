@@ -71,7 +71,7 @@ public class FirstWelcomeSlider extends AppCompatActivity implements View.OnClic
         gson = gsonBuilder.create();
         slider = new Slider();
 
-        PreferencesUtils.deleteEmail(this);
+//        PreferencesUtils.deleteEmail(this);
 
         String email = PreferencesUtils.getEmail(this);
         if (email != null && email != ""){

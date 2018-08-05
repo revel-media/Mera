@@ -21,12 +21,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        PreferencesUtils.deleteEmail(this);
+//        PreferencesUtils.deleteEmail(this);
         //Splash screen handler
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
 
                 String email = PreferencesUtils.getEmail(MainActivity.this);
                 if (email != null && email != ""){

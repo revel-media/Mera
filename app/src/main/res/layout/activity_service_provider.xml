@@ -138,7 +138,7 @@
                 />
 
             <EditText
-                android:id="@+id/address_tv"
+                android:id="@+id/address_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -175,7 +175,7 @@
                 />
 
             <EditText
-                android:id="@+id/buildingName"
+                android:id="@+id/neighborhood_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"

@@ -203,7 +203,7 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         stringRequest = new StringRequest(Request.Method.POST, BACK_END_REGISTERATION, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(RegistrationMainDataEntry.this, response, Toast.LENGTH_LONG).show();
+//                Toast.makeText(RegistrationMainDataEntry.this, response, Toast.LENGTH_LONG).show();
                 PreferencesUtils.saveEmail(email_et.getText().toString(), RegistrationMainDataEntry.this);
 
                 switch (accountType){

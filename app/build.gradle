@@ -56,6 +56,9 @@ dependencies {
     //circle image
     implementation 'de.hdodenhof:circleimageview:2.1.0'
 
+//    implementation 'com.google.android.gms:play-services-location:15.0.1'
+
+
 
 }
 apply plugin: 'com.google.gms.google-services'
