@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/dataEntryScrollview"
-    tools:context="com.example.goda.meraslidertask.view.RegisterationConditions">
+    tools:context="com.example.goda.meraslidertask.view.ServiceProviderData">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="10dp"
-        >
+        android:layout_height="match_parent">
 
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            ></include>
-
+            app:layout_constraintTop_toTopOf="parent"></include>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -30,14 +27,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
+
             <LinearLayout
                 style="@style/circleButtonAndLabelLayout">
 
                 <Button
-                    android:id="@+id/registerationConditions"
+                    android:id="@+id/serviceregisterationConditions"
                     style="@style/circleButtonsStyle"
                     android:background="@drawable/not_clicked_button"
-                    android:text="1"  />
+                    android:text="1"/>
 
                 <TextView
                     style="@style/circleButtonLabelsStyle"
@@ -50,9 +48,9 @@
                 style="@style/circleButtonAndLabelLayout">
 
                 <Button
-                    android:id="@+id/mainDataButton"
+                    android:id="@+id/servicemainDataActivityButton"
                     style="@style/circleButtonsStyle"
-                    android:background="@drawable/clicked_button"
+                    android:background="@drawable/not_clicked_button"
                     android:text="2" />
 
                 <TextView
@@ -66,25 +64,27 @@
                 style="@style/circleButtonAndLabelLayout">
 
                 <Button
-                    android:id="@+id/clientDataButton"
+                    android:id="@+id/serviceclientDataButton"
                     style="@style/circleButtonsStyle"
-                    android:background="@drawable/not_clicked_button"
+                    android:background="@drawable/clicked_button"
                     android:text="3" />
 
                 <TextView
+                    android:id="@+id/client_data_circle_tv"
                     style="@style/circleButtonLabelsStyle"
-                    android:text="@string/ClientLabel"
+                    android:text="@string/serviceProviderDataLabel"
                     />
 
             </LinearLayout>
 
             <LinearLayout
                 style="@style/circleButtonAndLabelLayout">
+
                 <Button
-                    android:id="@+id/theEndButton"
+                    android:id="@+id/servicetheEndButton"
                     style="@style/circleButtonsStyle"
                     android:background="@drawable/not_clicked_button"
-                    android:text="4" />
+                    android:text="4"/>
 
                 <TextView
                     style="@style/circleButtonLabelsStyle"
@@ -95,31 +95,145 @@
 
         </LinearLayout>
 
+
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="45dp"
-            android:text="@string/mainDataLabel"
-            android:textColor="#95a5a6"
-            android:textSize="18sp"
+            android:text="@string/serviceProviderDataLabel"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.055"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
-            style="@style/dataEntryLable"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:layoutDirection="rtl"
             android:background="@drawable/linearlayout_background"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:paddingBottom="5dp"
+                android:paddingStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:paddingTop="5dp"
+                android:background="#B0BEC5"
+                android:paddingEnd="20dp"
+                android:textSize="15sp"
+                android:text="@string/addressLabel"
+                />
+
+            <EditText
+                android:id="@+id/address_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="القاهره ، شارع عثمان بن عفان" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layoutDirection="rtl"
+            android:background="@drawable/linearlayout_background"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:textSize="15sp"
+                android:layout_marginEnd="5dp"
+                android:background="#B0BEC5"
+                android:paddingBottom="5dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/neighborhoodLabel"
+                />
+
+            <EditText
+                android:id="@+id/buildingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="القاهرة" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:background="@drawable/linearlayout_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:textSize="15sp"
+                android:layout_marginEnd="5dp"
+                android:background="#B0BEC5"
+                android:paddingBottom="5dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/cityLabel"
+                />
+
+
+            <Spinner
+                android:id="@+id/client_citySpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                ></Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:background="@drawable/linearlayout_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
             <TextView
                 android:layout_width="100dp"
@@ -130,196 +244,105 @@
                 android:paddingEnd="20dp"
                 android:paddingStart="5dp"
                 android:paddingTop="5dp"
-                android:textSize="15sp"
-                android:text="@string/nameLabel"
-                />
-
-            <EditText
-                android:id="@+id/name_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="خالد عبدالعزيز محمد" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            style="@style/dataEntryLable"
-            android:background="@drawable/linearlayout_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="5dp"
-                android:background="#B0BEC5"
-                android:paddingBottom="5dp"
-                android:paddingStart="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/phoneLabel"
+                android:text="@string/skillsLabel"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/phone_tv"
+            <LinearLayout
+                android:id="@+id/chechBoxlayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="050333340" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout5"
-            style="@style/dataEntryLable"
-            android:background="@drawable/linearlayout_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="5dp"
-                android:background="#B0BEC5"
-                android:paddingBottom="5dp"
-                android:paddingStart="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/emailLabel"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/email_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="khaled@khaled.com" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout6"
-            style="@style/dataEntryLable"
-            android:background="@drawable/linearlayout_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="5dp"
-                android:background="#B0BEC5"
-                android:paddingBottom="5dp"
-                android:paddingStart="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/passwordLabel"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/pass_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:background="@android:color/transparent"
-                android:hint="........" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout7"
-            style="@style/dataEntryLable"
-            android:background="@drawable/linearlayout_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="5dp"
-                android:background="#B0BEC5"
-                android:paddingBottom="5dp"
-                android:paddingStart="5dp"
-                android:text="@string/confirmpasswordLabel"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/confirmpass_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:inputType="textPassword"
-                android:background="@android:color/transparent"
-                android:hint="........" />
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:id="@+id/linearLayout9"
-            style="@style/dataEntryLable"
-            android:background="@drawable/linearlayout_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="5dp"
-                android:background="#B0BEC5"
-                android:paddingBottom="5dp"
-                android:paddingStart="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/account_type"
-                android:textSize="15sp" />
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/submit_data"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <RadioButton
-                    android:id="@+id/client_radiobtn"
+                    android:id="@+id/laundry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="checkRadioButton"
-                    android:text=" عميل"
+                    android:text="@string/laundrySkills"
                     tools:ignore="OnClick" />
 
+                <View
+                    android:layout_width="200dp"
+                    android:layout_height=".5dp"
+                    android:layout_marginStart="10dp"
+                    android:background="#000"></View>
+
                 <RadioButton
-                    android:id="@+id/serviceprovider_radiobtn"
+                    android:id="@+id/houseCleaning"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="checkRadioButton"
-                    android:text=" مقدم خدمه(مساعده)"
+                    android:text="@string/houseCleaningskills"
                     tools:ignore="OnClick" />
-            </RadioGroup>
+
+                <View
+                    android:layout_width="200dp"
+                    android:layout_height=".5dp"
+                    android:layout_marginStart="10dp"
+                    android:background="#000"></View>
+
+                <RadioButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/ironingClothes"
+                    android:text="@string/ironingClothesSkills"
+                    tools:ignore="OnClick"
+                    android:onClick="checkRadioButton"/>
+
+                <View
+                    android:layout_width="200dp"
+                    android:layout_height=".5dp"
+                    android:layout_marginStart="10dp"
+                    android:background="#000"></View>
+
+                <RadioButton android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/babySitting"
+                    android:text="@string/babySittingskills"
+                    tools:ignore="OnClick"
+                    android:onClick="checkRadioButton"/>
+
+                <View
+                    android:layout_width="200dp"
+                    android:layout_height=".5dp"
+                    android:layout_marginStart="10dp"
+                    android:background="#000"></View>
+
+                <RadioButton android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/careOfelderly"
+                    android:text="@string/careOfelderlyskills"
+                    tools:ignore="OnClick"
+                    android:onClick="checkRadioButton"/>
+
+                <View
+                    android:layout_width="200dp"
+                    android:layout_height=".5dp"
+                    android:layout_marginStart="10dp"
+                    android:background="#000"></View>
+
+                <RadioButton android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/cooking"
+                    android:text="@string/cookingskills"
+                    tools:ignore="OnClick"
+                    android:onClick="checkRadioButton"/>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/submit_data"
+            android:id="@+id/serviceNext"
             style="@style/nextButtonStyle"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

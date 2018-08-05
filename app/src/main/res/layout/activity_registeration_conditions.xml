@@ -1,40 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.goda.meraslidertask.view.RegisterationConditions"
-    android:background="@drawable/meraregester1">
+    android:paddingBottom="20dp"
+    android:fitsSystemWindows="true"
+    android:background="@color/registerActivityBackground">
+   <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+       android:paddingBottom="10dp">
 
-    <CheckBox
-        android:id="@+id/conditionsCheckBox"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.974"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+       <include
+           android:id="@+id/toolbar"
+           layout="@layout/toolbar"
+           app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintHorizontal_bias="1.0"
+           app:layout_constraintStart_toStartOf="parent"
+           android:fitsSystemWindows="true"
+           app:layout_constraintTop_toTopOf="parent"></include>
 
-    <Button
-        android:id="@+id/registration_next_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conditionsCheckBox"
-        android:background="@android:color/transparent"
-        style="?android:attr/buttonBarButtonStyle"/>
+       <LinearLayout
+           android:id="@+id/linearLayout2"
+           style="@style/circleButtonLinearLayoutStyle"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+       <LinearLayout
+       style="@style/circleButtonAndLabelLayout">
+
+           <Button
+               style="@style/circleButtonsStyle"
+               android:background="@drawable/clicked_button"
+               android:text="1"
+               />
+           <TextView
+               style="@style/circleButtonLabelsStyle"
+               android:text="@string/ConditionsLabel"/>
+
+       </LinearLayout>
+
+
+       <LinearLayout
+           style="@style/circleButtonAndLabelLayout">
+
+           <Button
+               android:id="@+id/mainDataActivityButton"
+               style="@style/circleButtonsStyle"
+               android:background="@drawable/not_clicked_button"
+               android:text="2" />
+
+           <TextView
+               style="@style/circleButtonLabelsStyle"
+               android:text="@string/MainDataLabel"
+               />
+
+       </LinearLayout>
+
+       <LinearLayout
+           style="@style/circleButtonAndLabelLayout">
+
+           <Button
+               android:id="@+id/clientDataButton"
+               style="@style/circleButtonsStyle"
+               android:background="@drawable/not_clicked_button"
+               android:text="3" />
+           <TextView
+               style="@style/circleButtonLabelsStyle"
+               android:text="@string/ClientLabel"
+               />
+       </LinearLayout>
+
+       <LinearLayout
+           style="@style/circleButtonAndLabelLayout">
+
+           <Button
+               android:id="@+id/theEndButton"
+               style="@style/circleButtonsStyle"
+               android:background="@drawable/not_clicked_button"
+               android:text="4" />
+
+           <TextView
+               style="@style/circleButtonLabelsStyle"
+               android:text="@string/EndLabel"
+               />
+       </LinearLayout>
+
+       </LinearLayout>
+
+       <TextView
+           android:id="@+id/terms_tv"
+           android:layout_width="match_parent"
+           android:layout_height="32dp"
+           android:layout_marginEnd="15dp"
+           android:layout_marginStart="15dp"
+           android:layout_marginTop="45dp"
+           android:text="@string/conditionsLabel"
+           android:textColor="@color/labelsColor"
+           android:textSize="18sp"
+           android:textStyle="bold"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+       <TextView
+           android:id="@+id/conditions_tv"
+           android:layout_width="match_parent"
+           android:layout_height="242dp"
+           android:layout_marginEnd="15dp"
+           android:layout_marginStart="15dp"
+           android:layout_marginTop="10dp"
+           android:background="#fff"
+           android:elevation="2dp"
+           android:padding="10dp"
+           android:text="@string/conditions"
+           android:textColor="#000"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintHorizontal_bias="0.0"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/terms_tv" />
+
+       <LinearLayout
+           android:id="@+id/linearLayout10"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginEnd="8dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginTop="8dp"
+           android:layoutDirection="rtl"
+           android:orientation="horizontal"
+           android:padding="5dp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/conditions_tv">
+
+
+           <CheckBox
+               android:id="@+id/conditionsCheckBox"
+               android:layout_width="50dp"
+               android:layout_height="wrap_content"
+               tools:layout_editor_absoluteX="402dp"
+               tools:layout_editor_absoluteY="493dp"
+               />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/checkBoxLabel"
+               android:textSize="15dp"
+               android:textColor="#95a5a6"/>
+
+       </LinearLayout>
+
+       <Button
+           android:id="@+id/conditionsNextbutton"
+           style="@style/nextButtonStyle"
+           android:layout_marginTop="30dp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/linearLayout10" />
 
 </android.support.constraint.ConstraintLayout>
+</ScrollView>

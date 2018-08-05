@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.goda.meraslidertask">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,8 +22,37 @@
         </activity>
         <activity android:name=".view.FirstWelcomeSlider" />
         <activity android:name=".view.RegisterationConditions" />
-        <activity android:name=".view.LoginActivity" />
-        <activity android:name=".view.RegistrationMainDataEntry"></activity>
+        <activity
+            android:name=".view.LoginActivity"
+            android:parentActivityName=".view.FirstWelcomeSlider" />
+        <activity
+            android:name=".view.RegistrationMainDataEntry"
+            android:parentActivityName=".view.RegisterationConditions" />
+        <activity
+            android:name=".view.ClientData"
+            android:parentActivityName=".view.RegistrationMainDataEntry" />
+        <activity
+            android:name=".view.ServiceProviderData"
+            android:parentActivityName=".view.ClientData" />
+        <activity android:name=".view.TheEnd" />
+        <activity android:name=".view.HomeActivity" />
+
+         <service
+         android:name=".view.RegistrationMainDataEntry$getToken">
+         <intent-filter>
+         <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+         </intent-filter>
+         </service>
+        <!--<activity android:name=".view.GoogleSignInMainScreen"></activity>-->
+
+        <!--<meta-data android:name="com.facebook.sdk.ApplicationId"-->
+            <!--android:value="@string/facebook_app_id"/>-->
+
+        <!--<activity android:name="com.facebook.FacebookActivity"-->
+            <!--android:configChanges=-->
+                <!--"keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
+            <!--android:label="@string/app_name" />-->
+
     </application>
 
 </manifest>

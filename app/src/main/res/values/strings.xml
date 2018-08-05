@@ -1,3 +1,86 @@
 <resources>
     <string name="app_name">MeraSliderTask</string>
+    <string name="slider1text">مساعدة قريبه من منزلك</string>
+    <string name="slider1SubText">ابحثى عن مساعدة قريبة من منزلك بكل سهولة والتواصل معها مباشرة</string>
+    <string name="slider1Button">المزيد ...</string>
+    <string name="sliderButton1">تسجيل جديد</string>
+    <string name="sliderButton2">دخول</string>
+    <string name="newUserTitle">تسجيل عضو جديد</string>
+    <string name="nameValidationError">يجب ان لايقل عدد احرف الاسم عن 3</string>
+    <string name="phoneValidationError">رقم الهاتف غير صحيح</string>
+    <string name="passwordValidationError">الرقم السري غير مطابق</string>
+    <string name="idValidationError">رقم الهويه غير صحيح</string>
+    <string name="emailValidationError">الايميل غير صحيح</string>
+    <string name="mainDataLabel">بيانات الحساب الاساسية</string>
+    <string name="nameLabel">الأسم</string>
+    <string name="phoneLabel">رقم الجوال</string>
+    <string name="emailLabel">البريد الألكترونى</string>
+    <string name="passwordLabel">الرقم السري</string>
+    <string name="idLabel">رقم الهوية</string>
+    <string name="confirmpasswordLabel">تأكيد الرقم السري</string>
+    <string name="account_type">نوع الحساب</string>
+    <string name="conditionsLabel">الأتفاقيات والشروط</string>
+    <string name="conditions">1- التعامل مع العميل بأسلوب لائق</string>
+    <string name="checkBoxLabel">أوافق على الشروط</string>
+    <string name="nextButtonLabel">التالى</string>
+    <string name="clientDataLabel">بيانات العميل</string>
+    <string name="serviceProviderDataLabel">بيانات المساعد</string>
+    <string name="addressLabel">العنوان</string>
+    <string name="neighborhoodLabel">الحى</string>
+    <string name="cityLabel">المدينة</string>
+    <string name="skillsLabel">المهارات</string>
+    <string name="laundrySkills">غسيل الملابس</string>
+    <string name="houseCleaningskills">تنظيف المنزل</string>
+    <string name="ironingClothesSkills">كوى الملابس</string>
+    <string name="babySittingskills">رعاية الأطفال</string>
+    <string name="careOfelderlyskills">رعاية كبار السن</string>
+    <string name="cookingskills">طبخ و أعداد الطعام</string>
+    <string name="theEndLabel">شكرا لتسجيلك</string>
+    <string name="theEndsubLabel">يشرفنا انضمامك معنا بأستطاعتك الان تجربة البرنامج  وفى حال عدم وجود اى ملاحظات يرجى التواصل معنا</string>
+    <string name="login">دخول</string>
+    <string name="redister">دخول جديد</string>
+    <string name="forgot_password">نسيت كلمة السر ؟</string>
+    <string name="loginWithGoogle">Login with Google</string>
+    <string name="loginWithFacebook">Login with Facebook</string>
+    <string name="loginWithTwitter">Login with Twitter</string>
+
+    <string name="clientAddressLabel">عنوان العميل:</string>
+    <string name="clientBuildingNumberLabel">رقم المبنى:</string>
+    <string name="clientCityLabel">المدينة:</string>
+    <string name="floorNumberLabel">رقم الدور:</string>
+
+    <string name="ConditionsLabel">الشروط</string>
+    <string name="MainDataLabel">البيانات الأساسية</string>
+    <string name="ServiceProviderLabel">بيانات المساعدة</string>
+    <string name="ClientLabel">بيانات العميل</string>
+    <string name="EndLabel">النهاية</string>
+    <string name="addressValidationError"> العنوان غير صحيح</string>
+    <string name="cityValidationError"> المدينة غير صحيحه</string>
+
+    <string-array name="city">
+        <item>القاهره</item>
+        <item>الاسماعيليه</item>
+        <item>الاسكندريه</item>
+        <item>الجيزة</item>
+    </string-array>
+
+    <string name="facebook_app_id">219055388801405</string>
+    <string name="fb_login_protocol_scheme">fb219055388801405</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="AssistanceLabel">المساعدات</string>
+    <string name="ChatsLabel">المحادثات</string>
+    <string name="FavouritesLabel">المفضله</string>
+    \<string name="MyProfileLabel">حسابى</string>
+    <string name="distance">المسافة</string>
+    <string name="call">اتصال</string>
+    <string name="chat">محادثة</string>
+    <string name="HomeActivityLabel"> الصفحة الرئيسية</string>
+    <string name="more">المزيد...</string>
+    <string name="retry">حاول مره اخرى</string>
+    <string name="login_with_google">Login with google</string>
+
 </resources>

@@ -1,9 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.goda.meraslidertask.view.LoginActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.goda.meraslidertask.view.LoginActivity">
+    android:background="@drawable/background">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/login_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"
+        android:background="@color/loginBackground"
+        android:padding="30dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:textDirection="rtl"
+            android:layoutDirection="rtl"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            >
+            <TextView
+                android:text="@string/emailLabel"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textDirection="rtl"
+                android:paddingTop="5dp"
+                android:padding="1dp"
+                android:background="#ECEFF1"/>
+            <EditText
+                android:id="@+id/email_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="mera@mera.app"
+                android:textDirection="rtl"
+                android:layout_weight="5"
+                android:background="#fff"
+                android:textAlignment="center"
+                android:padding="2dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:textDirection="rtl"
+            android:layoutDirection="rtl"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            >
+            <TextView
+                android:text="@string/passwordLabel"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="15dp"
+                android:textAlignment="center"
+                android:textDirection="rtl"
+                android:background="#ECEFF1"/>
+            <EditText
+                android:id="@+id/password_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textDirection="rtl"
+                android:layout_weight="5"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:background="#fff"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layoutDirection="rtl">
+
+            <Button
+                android:id="@+id/login_btn"
+                android:text="@string/login"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="#fff"
+                android:background="@color/colorAccent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"/>
+
+            <Button
+                android:id="@+id/register_btn"
+                android:text="@string/redister"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="#fff"
+                android:background="@color/colorAccent"
+                android:layout_marginEnd="20dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="@string/forgot_password"
+            android:id="@+id/forgot_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="16dp"
+            android:layout_marginTop="15dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/login_layout">
+
+    <Button
+            android:id="@+id/google_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:text="@string/login_with_google"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:layout_marginBottom="5dp"
+        android:layout_marginTop="20dp"
+            android:layout_below="@+id/google_login"/>
+
+    <Button
+        android:text="@string/loginWithFacebook"
+        android:id="@+id/login_with_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="5dp"
+        android:background="@color/facebook"
+        android:layout_below="@+id/google_login"/>
+
+    <Button
+        android:text="@string/loginWithTwitter"
+        android:id="@+id/login_with_twitter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_weight="1"
+        android:background="@color/twitter"
+        android:layout_below="@+id/login_with_facebook"
+        android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="loginBackground">#9fc7e0</color>
+    <color name="facebook">#517cc0</color>
+    <color name="twitter">#65cdf2</color>
+    <color name="colorPrimary">#65a3c9</color>
+    <color name="colorPrimaryDark">#65a3c8</color>
+    <color name="colorAccent">#6a4a9d</color>
+    <color name="labelsColor">#9b9b9b</color>
+    <color name="buttonsTextColor">#fff</color>
+    <color name="actvityBackgroundColor">#edefee</color>
+    <color name="circleIcons">#9b9b9b</color>
+    <color name="registerActivityBackground">#fbfbfc</color>
+
 </resources>
