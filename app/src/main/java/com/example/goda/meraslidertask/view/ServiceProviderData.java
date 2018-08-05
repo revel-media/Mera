@@ -7,6 +7,8 @@ import com.example.goda.meraslidertask.R;
 
 public class ServiceProviderData extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

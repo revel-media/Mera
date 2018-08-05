@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1053936056109",
+    "firebase_url": "https://meraslidertask-1d0f1.firebaseio.com",
+    "project_id": "meraslidertask-1d0f1",
+    "storage_bucket": "meraslidertask-1d0f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053936056109:android:cad2224d408ed9bd",
+        "android_client_info": {
+          "package_name": "com.example.goda.meraslidertask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053936056109-9ia6sap8a9t73eadtnpp4lv4lc1pg555.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.goda.meraslidertask",
+            "certificate_hash": "d5f95f6c1c882974bd2b4b66e55c09ce60e86898"
+          }
+        },
+        {
+          "client_id": "1053936056109-joerp7r93ljgoah613ha15oit2ttmbcg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2rXsAGG867FdBCvPvmBTOoSXKTHo94Ts"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053936056109-joerp7r93ljgoah613ha15oit2ttmbcg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

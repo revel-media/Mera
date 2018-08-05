@@ -19,6 +19,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.goda.meraslidertask.R;
+import com.example.goda.meraslidertask.models.login.Login;
+import com.example.goda.meraslidertask.models.login.LoginResults;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -26,8 +28,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -36,7 +42,7 @@ import butterknife.ButterKnife;
 //import com.facebook.FacebookSdk;
 //import com.facebook.appevents.AppEventsLogger;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.email_et)
     EditText email_et;
@@ -48,16 +54,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button register_btn;
     @BindView(R.id.forgot_password)
     TextView forgot_password;
-    @BindView(R.id.login_with_facebook)
-    Button facebook_login;
-    @BindView(R.id.login_with_twitter)
-    Button twitter_login;
-    @BindView(R.id.google_login)
-    Button googleLogin;
+
 
     private RequestQueue requestQueue ;
     private StringRequest stringRequest;
     private String BACK_END_LOGIN = "http://mera.live/api/user/login";
+    private Login login ;
+    private Gson gson;
+    private LoginResults loginResults;
 //    private GoogleApiClient googleApiClient;
 //    private static final int GoogleLoginRequest = 777;
 
@@ -72,9 +76,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         login_btn.setOnClickListener(this);
         register_btn.setOnClickListener(this);
-        facebook_login.setOnClickListener(this);
-        twitter_login.setOnClickListener(this);
-        googleLogin.setOnClickListener(this);
+
 //
 //        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 //                .requestEmail()
@@ -82,7 +84,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
 //                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
 //                .build();
-//3
+
+        // Volley Request and Gson
+        requestQueue = Volley.newRequestQueue(this);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gson = gsonBuilder.create();
+        login = new Login();
+
     }
 
     @Override
@@ -92,15 +100,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else if (view ==register_btn){
             Intent intent = new Intent(LoginActivity.this, RegisterationConditions.class);
             startActivity(intent);
-
-        }else if (view == googleLogin){
-//            Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-//            startActivityForResult(intent, GoogleLoginRequest);
-//            googleApiClient.connect();
-
-        }else if (view == facebook_login){
-
-        }else  if (view == twitter_login){
 
         }
     }
@@ -133,6 +132,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(String response) {
 //                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
+                login = gson.fromJson(response, Login.class);
+                if (login != null){
+                    loginResults = login.getResult();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -152,8 +156,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         requestQueue.add(stringRequest);
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
 }
