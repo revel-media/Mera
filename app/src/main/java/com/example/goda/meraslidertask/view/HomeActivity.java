@@ -34,11 +34,6 @@ public class HomeActivity extends AppCompatActivity {
 
         homePagerAdapter = new HomePagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(homePagerAdapter);
-
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_launcher_background),0);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_launcher_background),1);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_launcher_background),2);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_launcher_background),3);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 

@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         stringRequest = new StringRequest(Request.Method.POST, BACK_END_LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
+//                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
