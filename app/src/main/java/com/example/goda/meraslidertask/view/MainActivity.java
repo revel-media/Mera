@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.goda.meraslidertask.R;
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 String email = PreferencesUtils.getEmail(MainActivity.this);
                 if (email != null && email != ""){
                     Toast.makeText(MainActivity.this,"already logged in", Toast.LENGTH_LONG).show();
-                    Intent intent =new Intent(MainActivity.this, HomeActivity.class);
+                    Intent intent =new Intent(MainActivity.this, ClientHome.class);
                     startActivity(intent);
                 }else {
                     Intent intent =new Intent(MainActivity.this, FirstWelcomeSlider.class);

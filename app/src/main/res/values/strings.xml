@@ -74,7 +74,8 @@
     <string name="AssistanceLabel">المساعدات</string>
     <string name="ChatsLabel">المحادثات</string>
     <string name="FavouritesLabel">المفضله</string>
-    \<string name="MyProfileLabel">حسابى</string>
+    \
+    <string name="MyProfileLabel">حسابى</string>
     <string name="distance">المسافة</string>
     <string name="call">اتصال</string>
     <string name="chat">محادثة</string>

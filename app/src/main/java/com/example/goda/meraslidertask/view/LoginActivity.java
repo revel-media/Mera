@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Login login ;
     private Gson gson;
     private LoginResults loginResults;
+    private String account_type;
 //    private GoogleApiClient googleApiClient;
 //    private static final int GoogleLoginRequest = 777;
 
@@ -135,6 +136,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 login = gson.fromJson(response, Login.class);
                 if (login != null){
                     loginResults = login.getResult();
+                    account_type = loginResults.getTypeID();
+                    if (account_type.matches("1")){
+                        Intent intent = new Intent(LoginActivity.this, ClientHome.class);
+                        startActivity(intent);
+                    }else if (account_type.matches("2")){
+                        Intent intent = new Intent(LoginActivity.this, ServiceProviderHome.class);
+                        startActivity(intent);
+                    }
                 }
 
             }

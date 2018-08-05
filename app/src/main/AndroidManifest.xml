@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.goda.meraslidertask">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 
     <application
         android:allowBackup="true"
@@ -35,24 +34,26 @@
             android:name=".view.ServiceProviderData"
             android:parentActivityName=".view.ClientData" />
         <activity android:name=".view.TheEnd" />
-        <activity android:name=".view.HomeActivity" />
+        <activity android:name=".view.ClientHome" />
 
-         <service
-         android:name=".view.RegistrationMainDataEntry$getToken">
-         <intent-filter>
-         <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-         </intent-filter>
-         </service>
-        <!--<activity android:name=".view.GoogleSignInMainScreen"></activity>-->
+        <service android:name=".view.RegistrationMainDataEntry$getToken">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <!-- <activity android:name=".view.GoogleSignInMainScreen"></activity> -->
 
-        <!--<meta-data android:name="com.facebook.sdk.ApplicationId"-->
-            <!--android:value="@string/facebook_app_id"/>-->
 
-        <!--<activity android:name="com.facebook.FacebookActivity"-->
-            <!--android:configChanges=-->
-                <!--"keyboard|keyboardHidden|screenLayout|screenSize|orientation"-->
-            <!--android:label="@string/app_name" />-->
+        <!-- <meta-data android:name="com.facebook.sdk.ApplicationId" -->
+        <!-- android:value="@string/facebook_app_id"/> -->
 
+
+        <!-- <activity android:name="com.facebook.FacebookActivity" -->
+        <!-- android:configChanges= -->
+        <!-- "keyboard|keyboardHidden|screenLayout|screenSize|orientation" -->
+        <!-- android:label="@string/app_name" /> -->
+
+        <activity android:name=".view.ServiceProviderHome"></activity>
     </application>
 
 </manifest>

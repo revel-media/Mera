@@ -12,7 +12,7 @@ import com.example.goda.meraslidertask.adapter.HomePagerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends AppCompatActivity {
+public class ClientHome extends AppCompatActivity {
 
     @BindView(R.id.toolbar)Toolbar toolbar;
     @BindView(R.id.viewpager)
