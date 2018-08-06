@@ -90,13 +90,32 @@ public class PreferencesUtils {
 
     }
 
-    public static void savePassword (String password, Context context){
+    public static void saveLat (String latitude, Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(Constants.KEY_PASSWORD, password);
+        editor.putString(Constants.KEY_LAT, latitude);
         editor.apply();
 
     }
+
+    public static void saveLng (String longitude, Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(Constants.KEY_LNG, longitude);
+        editor.apply();
+
+    }
+
+    public static String getLat (Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(Constants.KEY_LAT, null);
+    }
+
+    public static String getLng (Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(Constants.KEY_LNG, null);
+    }
+
 
     public static String getEmail (Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

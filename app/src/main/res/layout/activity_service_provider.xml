@@ -6,11 +6,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     android:id="@+id/serviceProviderScrollview"
     tools:context="com.example.goda.meraslidertask.view.ServiceProviderData">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl"
+        android:paddingBottom="25dp">
 
         <include
             android:id="@+id/toolbar"
@@ -340,6 +343,7 @@
             android:id="@+id/serviceNext"
             style="@style/nextButtonStyle"
             android:layout_marginTop="30dp"
+            android:textDirection="rtl"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

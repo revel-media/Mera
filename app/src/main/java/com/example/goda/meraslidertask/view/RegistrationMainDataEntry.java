@@ -128,12 +128,15 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
     }
 
     private boolean validatePassword(String password, String confirmPassword) {
-        if (password.equals(confirmPassword)) {
-            this.password = password;
-            return true;
-        } else {
-            return false;
-        }
+        if (password == null || password == ""){
+           return false;
+        }else if (password.equals(confirmPassword)) {
+                 this.password = password;
+                 return true;
+             } else {
+                 return false;
+             }
+
     }
 
 
@@ -164,7 +167,7 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                     validateEmail(email_et.getText().toString()) &&
                     validatePassword(password_et.getText().toString(), confirmPassword_et.getText().toString())) {
 
-                if (accountType.matches("")){
+                if (accountType == null){
 
                     Toast.makeText(RegistrationMainDataEntry.this, "please choose account type", Toast.LENGTH_LONG).show();
 
@@ -182,8 +185,12 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                     phone_et.requestFocus();
                 }
                 if (!validatePassword(password_et.getText().toString(), confirmPassword_et.getText().toString())) {
-                    confirmPassword_et.setError(getString(R.string.passwordValidationError));
-                    phone_et.requestFocus();
+                    if (password == null || password == ""){
+                        password_et.setError(getString(R.string.passwordEmpty));
+                    }else {
+                        confirmPassword_et.setError(getString(R.string.passwordValidationError));
+                        phone_et.requestFocus();
+                    }
                 }
                 if (!validateEmail(email_et.getText().toString())) {
                     email_et.setError(getString(R.string.emailValidationError));
@@ -207,7 +214,8 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                 }
 
                 PreferencesUtils.saveId(String.valueOf(UserId), RegistrationMainDataEntry.this);
-//                Toast.makeText(RegistrationMainDataEntry.this, response, Toast.LENGTH_LONG).show();
+                PreferencesUtils.saveName(name, RegistrationMainDataEntry.this);
+// Toast.makeText(RegistrationMainDataEntry.this, response, Toast.LENGTH_LONG).show();
 //                 Log.i("RIGISTERRESPONSE",response);
                 switch (accountType){
                     case "1" :
@@ -228,8 +236,9 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RegistrationMainDataEntry.this, String.valueOf(error), Toast.LENGTH_LONG).show();
+//                Toast.makeText(RegistrationMainDataEntry.this, String.valueOf(error), Toast.LENGTH_LONG).show();
                 NetworkResponse networkResponse = error.networkResponse;
+
                 String errorMessage = "Unknown error";
                 if (networkResponse == null) {
                     if (error.getClass().equals(TimeoutError.class)) {
@@ -251,13 +260,12 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                                         sendData();
                                     }
                                 }).show();
-                         Toast.makeText(RegistrationMainDataEntry.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 } else {
                     String result = new String(networkResponse.data);
                     try {
                         JSONObject response = new JSONObject(result);
-                        String status = response.getString("status");
+                        String status = response.getString("error");
                         String message = response.getString("message");
                         Log.e("Error Status", status);
                         Log.e("Error Message", message);
@@ -290,6 +298,7 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                         e.printStackTrace();
                     }
                 }
+
                 Log.i("Error", errorMessage);
                 error.printStackTrace();
 

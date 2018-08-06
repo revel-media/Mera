@@ -18,6 +18,9 @@ public class Constants {
     public static  String KEY_CITY = "city";
     public  static  String KEY_FLOOR_NUMBER = "flooe number";
     public static  String KEY_NEIGHBORHOOD = "neighborhood";
+    public static  String KEY_LAT = "latitude";
+    public static  String KEY_LNG= "longitude";
+
 
 
 }

@@ -83,5 +83,7 @@
     <string name="more">المزيد...</string>
     <string name="retry">حاول مره اخرى</string>
     <string name="login_with_google">Login with google</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="passwordEmpty">يجب إدخال الرقم السري</string>
 
 </resources>
