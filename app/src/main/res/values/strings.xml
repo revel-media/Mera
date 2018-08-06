@@ -85,5 +85,6 @@
     <string name="login_with_google">Login with google</string>
     <string name="title_activity_maps">Map</string>
     <string name="passwordEmpty">يجب إدخال الرقم السري</string>
+    <string name="changePassword">تعديل كلمة السر</string>
 
 </resources>

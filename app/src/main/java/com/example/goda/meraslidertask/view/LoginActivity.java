@@ -50,10 +50,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button login_btn;
     @BindView(R.id.register_btn)
     Button register_btn;
-    @BindView(R.id.forgot_password)
-    TextView forgot_password;
     @BindView(R.id.login_relativelayout)
     RelativeLayout relativeLayout;
+    @BindView(R.id.forgot_password)
+    TextView changePassword_tv;
 
 
     private RequestQueue requestQueue ;
@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         login_btn.setOnClickListener(this);
         register_btn.setOnClickListener(this);
+        changePassword_tv.setOnClickListener(this);
 
 
         // Volley Request and Gson
@@ -96,6 +97,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(LoginActivity.this, RegisterationConditions.class);
             startActivity(intent);
 
+        }else if (view == changePassword_tv){
+            Intent intent = new Intent(LoginActivity.this, ChangePassword.class);
+            startActivity(intent);
         }
     }
 

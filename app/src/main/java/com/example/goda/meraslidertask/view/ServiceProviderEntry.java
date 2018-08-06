@@ -60,6 +60,7 @@ import butterknife.ButterKnife;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class ServiceProviderEntry extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+
     @BindView(R.id.serviceregisterationConditions)
     Button conditionsActivityButton;
     @BindView(R.id.servicemainDataActivityButton)
