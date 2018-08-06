@@ -1,4 +1,4 @@
-package com.example.goda.meraslidertask.fragments;
+package com.example.goda.meraslidertask.fragments.client;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,22 +8,25 @@ import android.view.ViewGroup;
 
 import com.example.goda.meraslidertask.R;
 
-public class Assistance extends Fragment {
+public class Chats extends Fragment {
 
 
-    public Assistance(){}
+    public Chats() {
+        // Required empty public constructor
+    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_assistance, container, false);
+        return inflater.inflate(R.layout.fragment_chats, container, false);
     }
 
 }

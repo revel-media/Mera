@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        PreferencesUtils.deleteEmail(this);
+        PreferencesUtils.deleteEmail(this);
         //Splash screen handler
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"new login", Toast.LENGTH_LONG).show();
                 }
 
-              /*  Intent intent = new Intent(MainActivity.this, FirstWelcomeSlider.class);
-                startActivity(intent);*/
                 finish();
             }
         },SPLASH_TIME_OUT);

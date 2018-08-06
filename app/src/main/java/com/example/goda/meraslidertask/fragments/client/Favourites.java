@@ -1,4 +1,4 @@
-package com.example.goda.meraslidertask.fragments;
+package com.example.goda.meraslidertask.fragments.client;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

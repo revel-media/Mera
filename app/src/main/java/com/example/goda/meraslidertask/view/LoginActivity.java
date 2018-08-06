@@ -1,7 +1,6 @@
 package com.example.goda.meraslidertask.view;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,29 +26,19 @@ import com.example.goda.meraslidertask.R;
 import com.example.goda.meraslidertask.models.login.Login;
 import com.example.goda.meraslidertask.models.login.LoginResults;
 import com.example.goda.meraslidertask.utils.PreferencesUtils;
-import com.facebook.FacebookSdk;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-//import com.facebook.FacebookSdk;
-//import com.facebook.appevents.AppEventsLogger;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -76,8 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String account_type;
     private String json;
     private String userId;
-//    private GoogleApiClient googleApiClient;
-//    private static final int GoogleLoginRequest = 777;
+
 
 
     @Override
@@ -91,13 +79,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login_btn.setOnClickListener(this);
         register_btn.setOnClickListener(this);
 
-//
-//        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
-//        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
-//                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
-//                .build();
 
         // Volley Request and Gson
         requestQueue = Volley.newRequestQueue(this);
@@ -117,28 +98,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         }
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == GoogleLoginRequest){
-//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-//            handleSignInResult(result);
-//        }
-//    }
-//
-//    private void handleSignInResult(GoogleSignInResult result) {
-//        if (result.isSuccess()){
-//            goMainScreen();
-//        }else {
-//            Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_LONG).show();
-//        }
-//    }
-//
-//    private void goMainScreen() {
-//        Intent intent = new Intent(LoginActivity.this,GoogleSignInMainScreen.class);
-//        startActivity(intent);
-//    }
 
     private void sendData() {
 
@@ -161,7 +120,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         startActivity(intent);
                     }
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override

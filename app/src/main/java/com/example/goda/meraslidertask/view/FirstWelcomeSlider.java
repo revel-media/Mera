@@ -1,7 +1,6 @@
 package com.example.goda.meraslidertask.view;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -71,7 +70,7 @@ public class FirstWelcomeSlider extends AppCompatActivity implements View.OnClic
         gson = gsonBuilder.create();
         slider = new Slider();
 
-//        PreferencesUtils.deleteEmail(this);
+        PreferencesUtils.deleteEmail(this);
 
         String email = PreferencesUtils.getEmail(this);
         if (email != null && email != ""){

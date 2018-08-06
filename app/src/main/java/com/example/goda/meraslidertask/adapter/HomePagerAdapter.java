@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.goda.meraslidertask.R;
-import com.example.goda.meraslidertask.fragments.Assistance;
-import com.example.goda.meraslidertask.fragments.Chats;
-import com.example.goda.meraslidertask.fragments.Favourites;
-import com.example.goda.meraslidertask.fragments.MyProfile;
+import com.example.goda.meraslidertask.fragments.client.Assistance;
+import com.example.goda.meraslidertask.fragments.client.Chats;
+import com.example.goda.meraslidertask.fragments.client.Favourites;
+import com.example.goda.meraslidertask.fragments.client.MyProfile;
 
 public class HomePagerAdapter extends FragmentPagerAdapter {
 

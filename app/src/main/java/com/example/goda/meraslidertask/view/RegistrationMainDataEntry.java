@@ -25,10 +25,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.goda.meraslidertask.R;
+import com.example.goda.meraslidertask.models.register.Register;
 import com.example.goda.meraslidertask.utils.PreferencesUtils;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 import org.json.JSONException;
@@ -52,8 +55,6 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
     EditText password_et;
     @BindView(R.id.confirmpass_tv)
     EditText confirmPassword_et;
-//    @BindView(R.id.id_tv)
-//    EditText id_et;
     @BindView(R.id.client_radiobtn)
     RadioButton clientRadioButton;
     @BindView(R.id.serviceprovider_radiobtn)
@@ -66,9 +67,10 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
     ScrollView scrollView;
     private String accountType;
     private String BACK_END_REGISTERATION = "http://mera.live/api/user/register_user";
-    private PreferencesUtils preferencesUtils;
     private RequestQueue requestQueue;
     private StringRequest stringRequest;
+    private Gson gson;
+    private  Register register;
     private String name;
     private String phone;
     private String email;
@@ -98,7 +100,12 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         FirebaseApp.initializeApp(this);
         deviceToken = FirebaseInstanceId.getInstance().getToken();
 //        Toast.makeText(this, deviceToken, Toast.LENGTH_LONG).show();
+
+        // Volley Request and Gson
         requestQueue = Volley.newRequestQueue(this);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gson = gsonBuilder.create();
+        register = new Register();
 
     }
 
@@ -129,13 +136,6 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         }
     }
 
-//    private boolean validateId(String id) {
-//        if (id != null && id.length() == 14) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     public String checkRadioButton(View v) {
         if (v == clientRadioButton) {
@@ -185,10 +185,6 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                     confirmPassword_et.setError(getString(R.string.passwordValidationError));
                     phone_et.requestFocus();
                 }
-//                if (!validateId(id_et.getText().toString())) {
-//                    id_et.setError(getString(R.string.idValidationError));
-//                    id_et.requestFocus();
-//                }
                 if (!validateEmail(email_et.getText().toString())) {
                     email_et.setError(getString(R.string.emailValidationError));
                     email_et.requestFocus();
@@ -203,16 +199,25 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         stringRequest = new StringRequest(Request.Method.POST, BACK_END_REGISTERATION, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-//                Toast.makeText(RegistrationMainDataEntry.this, response, Toast.LENGTH_LONG).show();
-                PreferencesUtils.saveEmail(email_et.getText().toString(), RegistrationMainDataEntry.this);
 
+                register = gson.fromJson(response, Register.class);
+
+                if (register != null){
+                    UserId = register.getResult().getUserId();
+                }
+
+                PreferencesUtils.saveId(String.valueOf(UserId), RegistrationMainDataEntry.this);
+//                Toast.makeText(RegistrationMainDataEntry.this, response, Toast.LENGTH_LONG).show();
+//                 Log.i("RIGISTERRESPONSE",response);
                 switch (accountType){
                     case "1" :
                         Intent intent = new Intent(RegistrationMainDataEntry.this, ClientData.class);
+                        PreferencesUtils.saveAccountType("1",RegistrationMainDataEntry.this);
                         startActivity(intent);
                         break;
                     case "2" :
                         Intent intent2 = new Intent(RegistrationMainDataEntry.this, ServiceProviderData.class);
+                        PreferencesUtils.saveAccountType("2",RegistrationMainDataEntry.this);
                         startActivity(intent2);
                         break;
                     default:

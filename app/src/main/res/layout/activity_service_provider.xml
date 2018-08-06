@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/serviceProviderScrollview"
     tools:context="com.example.goda.meraslidertask.view.ServiceProviderData">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

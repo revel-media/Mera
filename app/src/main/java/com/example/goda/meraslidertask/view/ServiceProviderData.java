@@ -5,47 +5,57 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Looper;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.goda.meraslidertask.Manifest;
 import com.example.goda.meraslidertask.R;
 import com.example.goda.meraslidertask.utils.PreferencesUtils;
-//import com.google.android.gms.location.LocationCallback;
-//import com.google.android.gms.location.LocationRequest;
-//import com.google.android.gms.location.LocationResult;
-//import com.google.android.gms.location.LocationServices;
-//import com.google.android.gms.location.LocationSettingsRequest;
-//import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class ServiceProviderData extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -75,21 +85,23 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
     RadioButton cooking;
     @BindView(R.id.client_citySpinner)
     Spinner spinner;
-    @BindView(R.id.address_tv)
+    @BindView(R.id.address_et)
     EditText address_tv;
     @BindView(R.id.neighborhood_et)
     EditText buildingName;
     @BindView(R.id.client_data_circle_tv)
     TextView client_data_circle_tv;
+    @BindView(R.id.serviceProviderScrollview)
+    ScrollView scrollView;
+
 
     private String choosedcity;
     private List<Integer> choosedSkiils = new ArrayList<>();
-    private String tv_name;
     private RequestQueue requestQueue;
     private StringRequest stringRequest;
     private Gson gson;
     private static final String API = "http://mera.live/api/user/user_details";
-//    private LocationRequest mLocationRequest;
+    private LocationRequest mLocationRequest;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
     LocationManager locationManager;
@@ -120,21 +132,25 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        //Display previous user data if existed
-        String address = PreferencesUtils.getAddress(ServiceProviderData.this);
-        if (address != null && address != "") {
-            address_tv.setText(PreferencesUtils.getAddress(ServiceProviderData.this));
-            buildingName.setText(PreferencesUtils.getBuildingNumber(ServiceProviderData.this));
-        }
 
-        tv_name = getIntent().getStringExtra("textView_name");
-        client_data_circle_tv.setText(tv_name);
+        if (PreferencesUtils.getAccountType(this).matches("1")){
+            client_data_circle_tv.setText("بيانات العميل");
+        }else {
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) client_data_circle_tv.getLayoutParams();
+            LinearLayout.LayoutParams lp2 = (LinearLayout.LayoutParams) clientdataButton.getLayoutParams();
+            lp.setMargins(0,0,0,0);
+            lp2.setMargins(0,0,0,0);
+
+            client_data_circle_tv.setLayoutParams(lp);
+            clientdataButton.setLayoutParams(lp2);
+            client_data_circle_tv.setText("بيانات مقدم الخدمه");
+        }
 
         // Volley Request and Gson
         requestQueue = Volley.newRequestQueue(this);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gson = gsonBuilder.create();
-//        startLocationUpdates();
+        startLocationUpdates();
 
         locationManager = (LocationManager) getSystemService(ServiceProviderData.this.LOCATION_SERVICE);
     }
@@ -183,19 +199,9 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        // Condition activity
-        if (view == conditionsActivityButton) {
-            Intent intent = new Intent(ServiceProviderData.this, RegisterationConditions.class);
-            startActivity(intent);
-
-        }else if (view == maindataButton) {
-            Intent intent = new Intent(ServiceProviderData.this, RegistrationMainDataEntry.class);
-            startActivity(intent);
-
-            //Next Button
-        } else if (view == next) {
+        if (view == next) {
             if (checkOnAddress(address_tv.getText().toString()) && checkOnCity(choosedcity)) {
-                senData();
+                sendData();
 
             } else {
 
@@ -213,7 +219,7 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         choosedcity = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(this, choosedcity, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, choosedcity, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -222,7 +228,7 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void senData() {
+    private void sendData() {
         stringRequest = new StringRequest(Request.Method.POST, API, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -231,18 +237,103 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
                 PreferencesUtils.saveEmail(address_tv.getText().toString(), ServiceProviderData.this);
                 PreferencesUtils.saveName(buildingName.getText().toString(), ServiceProviderData.this);
                 Intent intent = new Intent(ServiceProviderData.this, TheEnd.class);
-                intent.putExtra("textView_name", tv_name);
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ServiceProviderData.this, error.toString(), Toast.LENGTH_LONG).show();
+                NetworkResponse networkResponse = error.networkResponse;
+
+//                networkResponse = error.networkResponse;
+//                if (networkResponse != null && networkResponse.data != null) {
+//                    if (networkResponse. == 400) {
+//                        json = new String(networkResponse.data);
+//                        json = trimMessage(json, "message");
+//                        if (json != null) displayMessage(json);
+//
+//                    }
+                //Additional cases
+
+                String errorMessage = "Unknown error";
+                if (networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        errorMessage = "Request timeout";
+                        Snackbar.make(scrollView, errorMessage, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(R.string.retry, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        sendData();
+                                    }
+                                }).show();
+                        // Toast.makeText(GroupSettings.this, errorMessage, Toast.LENGTH_LONG).show();
+                    } else if (error.getClass().equals(NoConnectionError.class)) {
+                        errorMessage = "Failed to connect server";
+                        Snackbar.make(scrollView, errorMessage, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(R.string.retry, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        sendData();
+                                    }
+                                }).show();
+                        Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    String result = new String(networkResponse.data);
+                    try {
+                        JSONObject response = new JSONObject(result);
+                        if (response.getString(result).matches("0")) {
+                            Toast.makeText(ServiceProviderData.this, "wrong email or password", Toast.LENGTH_LONG).show();
+                        } else {
+                            String status = response.getString("status");
+                            String message = response.getString("message");
+                            Log.e("Error Status", status);
+                            Log.e("Error Message", message);
+                            if (networkResponse.statusCode == 404) {
+                                errorMessage = "Resource not found";
+                                Snackbar.make(scrollView, errorMessage, Snackbar.LENGTH_INDEFINITE)
+                                        .setAction(R.string.retry, new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                sendData();
+                                            }
+                                        }).show();
+                            } else if (networkResponse.statusCode == 401) {
+                                errorMessage = message + " Please login again";
+                                Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                            } else if (networkResponse.statusCode == 400) {
+                                errorMessage = message + " Check your inputs";
+                                Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                            } else if (networkResponse.statusCode == 500) {
+                                errorMessage = message + " Something is getting wrong";
+                                Snackbar.make(scrollView, errorMessage, Snackbar.LENGTH_INDEFINITE)
+                                        .setAction(R.string.retry, new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                sendData();
+                                            }
+                                        }).show();
+                            }
+                        }
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                //Additional cases
+                Log.i("Error", errorMessage);
+                error.printStackTrace();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String, String> params = new HashMap<>();
 
 
                 params.put("user_id", PreferencesUtils.getid(ServiceProviderData.this));
-                params.put("address", address_tv.getText().toString());
+                params.put("addressTv", address_tv.getText().toString());
                 params.put("city", choosedcity);
                 params.put("building_info", buildingName.getText().toString());
 
@@ -252,50 +343,49 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
 
                 String location = gson.toJson(currentLatAndLong);
                 params.put("location", location);
-
-
+                return params;
             }
-        });
+        };
         requestQueue.add(stringRequest);
     }
 
-//    // Trigger new location updates at interval
-//    protected void startLocationUpdates() {
-//
-//        // Create the location request to start receiving updates
-//        mLocationRequest = new LocationRequest().create();
-//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-//        mLocationRequest.setInterval(UPDATE_INTERVAL);
-//        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-//
-//        // Create LocationSettingsRequest object using location request
-//        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
-//        builder.addLocationRequest(mLocationRequest);
-//        LocationSettingsRequest locationSettingsRequest = builder.build();
-//
-//        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
-//        settingsClient.checkLocationSettings(locationSettingsRequest);
-//
-//        // new Google API SDK v11 uses getFusedLocationProviderClient(this)
-//
-//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
-//                    @Override
-//                    public void onLocationResult(LocationResult locationResult) {
-//                        onLocationChanged(locationResult.getLastLocation());
-//                    }
-//                },
-//                Looper.myLooper());
-//    }
+    // Trigger new location updates at interval
+    protected void startLocationUpdates() {
+
+        // Create the location request to start receiving updates
+        mLocationRequest = new LocationRequest().create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
+        // Create LocationSettingsRequest object using location request
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        LocationSettingsRequest locationSettingsRequest = builder.build();
+
+        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+        settingsClient.checkLocationSettings(locationSettingsRequest);
+
+        // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        onLocationChanged(locationResult.getLastLocation());
+                    }
+                },
+                Looper.myLooper());
+    }
 
     public void onLocationChanged(Location location) {
         // New location has now been determined

@@ -12,8 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ServiceProviderHome extends AppCompatActivity {
-    @BindView(R.id.logout)
-    Button logout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +21,5 @@ public class ServiceProviderHome extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    public void logOut(View view) {
-        PreferencesUtils.deleteEmail(ServiceProviderHome.this);
-    }
+
 }
