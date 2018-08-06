@@ -224,7 +224,7 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                         startActivity(intent);
                         break;
                     case "2" :
-                        Intent intent2 = new Intent(RegistrationMainDataEntry.this, ServiceProviderData.class);
+                        Intent intent2 = new Intent(RegistrationMainDataEntry.this, ServiceProviderEntry.class);
                         PreferencesUtils.saveAccountType("2",RegistrationMainDataEntry.this);
                         startActivity(intent2);
                         break;

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -60,8 +59,7 @@ import butterknife.ButterKnife;
 
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
-public class ServiceProviderData extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-
+public class ServiceProviderEntry extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     @BindView(R.id.serviceregisterationConditions)
     Button conditionsActivityButton;
     @BindView(R.id.servicemainDataActivityButton)
@@ -74,18 +72,6 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
     Button next;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.laundry)
-    RadioButton laundry;
-    @BindView(R.id.houseCleaning)
-    RadioButton houseCleaning;
-    @BindView(R.id.ironingClothes)
-    RadioButton ironingClothes;
-    @BindView(R.id.babySitting)
-    RadioButton babySitting;
-    @BindView(R.id.careOfelderly)
-    RadioButton careOfelderly;
-    @BindView(R.id.cooking)
-    RadioButton cooking;
     @BindView(R.id.client_citySpinner)
     Spinner spinner;
     @BindView(R.id.address_et)
@@ -96,6 +82,8 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
     TextView client_data_circle_tv;
     @BindView(R.id.serviceProviderScrollview)
     ScrollView scrollView;
+    @BindView(R.id.chechBoxlayout)
+    LinearLayout linearLayout;
 
 
     private String choosedcity;
@@ -114,12 +102,11 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
     double longitude, latitude;
     private List<String> currentLatAndLong = new ArrayList<>();
     private List<SkillsResults> skillsResults = new ArrayList<>();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_provider);
+        setContentView(R.layout.activity_service_provider_entry);
+
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -162,33 +149,11 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
 
         getSkills();
 
-        locationManager = (LocationManager) getSystemService(ServiceProviderData.this.LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(ServiceProviderEntry.this.LOCATION_SERVICE);
     }
 
     public void checkRadioButton(View v) {
-        if (v == laundry) {
-            choosedSkiils.add(1);
-        }
-        if (v == houseCleaning) {
-            choosedcity = (String) houseCleaning.getText();
-            choosedSkiils.add(2);
-        }
-        if (v == ironingClothes) {
-            choosedcity = (String) ironingClothes.getText();
-            choosedSkiils.add(3);
-        }
-        if (v == babySitting) {
-            choosedcity = (String) babySitting.getText();
-            choosedSkiils.add(4);
-        }
-        if (v == careOfelderly) {
-            choosedcity = (String) careOfelderly.getText();
-            choosedSkiils.add(5);
-        }
-        if (v == cooking) {
-            choosedcity = (String) cooking.getText();
-            choosedSkiils.add(6);
-        }
+
     }
 
     private boolean checkOnAddress(String address) {
@@ -244,15 +209,15 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
             public void onResponse(String response) {
 
                 //saving user data in sharedpreferences
-                PreferencesUtils.saveEmail(address_tv.getText().toString(), ServiceProviderData.this);
-                PreferencesUtils.saveName(buildingName.getText().toString(), ServiceProviderData.this);
-                Intent intent = new Intent(ServiceProviderData.this, TheEnd.class);
+                PreferencesUtils.saveEmail(address_tv.getText().toString(), ServiceProviderEntry.this);
+                PreferencesUtils.saveName(buildingName.getText().toString(), ServiceProviderEntry.this);
+                Intent intent = new Intent(ServiceProviderEntry.this, TheEnd.class);
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(ServiceProviderData.this, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(ServiceProviderEntry.this, error.toString(), Toast.LENGTH_LONG).show();
                 NetworkResponse networkResponse = error.networkResponse;
 
 //                networkResponse = error.networkResponse;
@@ -286,14 +251,14 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
                                         sendData();
                                     }
                                 }).show();
-                        Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                        Toast.makeText(ServiceProviderEntry.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 } else {
                     String result = new String(networkResponse.data);
                     try {
                         JSONObject response = new JSONObject(result);
                         if (response.getString(result).matches("0")) {
-                            Toast.makeText(ServiceProviderData.this, "wrong email or password", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ServiceProviderEntry.this, "wrong email or password", Toast.LENGTH_LONG).show();
                         } else {
                             String status = response.getString("status");
                             String message = response.getString("message");
@@ -310,10 +275,10 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
                                         }).show();
                             } else if (networkResponse.statusCode == 401) {
                                 errorMessage = message + " Please login again";
-                                Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                                Toast.makeText(ServiceProviderEntry.this, errorMessage, Toast.LENGTH_LONG).show();
                             } else if (networkResponse.statusCode == 400) {
                                 errorMessage = message + " Check your inputs";
-                                Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                                Toast.makeText(ServiceProviderEntry.this, errorMessage, Toast.LENGTH_LONG).show();
                             } else if (networkResponse.statusCode == 500) {
                                 errorMessage = message + " Something is getting wrong";
                                 Snackbar.make(scrollView, errorMessage, Snackbar.LENGTH_INDEFINITE)
@@ -342,7 +307,7 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
                 Map<String, String> params = new HashMap<>();
 
 
-                params.put("user_id", PreferencesUtils.getid(ServiceProviderData.this));
+                params.put("user_id", PreferencesUtils.getid(ServiceProviderEntry.this));
                 params.put("addressTv", address_tv.getText().toString());
                 params.put("city", choosedcity);
                 params.put("building_info", buildingName.getText().toString());
@@ -365,18 +330,18 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
             @Override
             public void onResponse(String response) {
 
-             skills = gson.fromJson(response,Skills.class);
-             if (skills != null){
-                 skillsResults = skills.getResult();
-                 setSkillsView(skillsResults);
-                 Toast.makeText(ServiceProviderData.this, String.valueOf(skillsResults.size()), Toast.LENGTH_LONG).show();
-             }
+                skills = gson.fromJson(response,Skills.class);
+                if (skills != null){
+                    skillsResults = skills.getResult();
+                    setSkillsView(skillsResults);
+                    Toast.makeText(ServiceProviderEntry.this, String.valueOf(skillsResults.size()), Toast.LENGTH_LONG).show();
+                }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(ServiceProviderData.this, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(ServiceProviderEntry.this, error.toString(), Toast.LENGTH_LONG).show();
                 NetworkResponse networkResponse = error.networkResponse;
 
 //                networkResponse = error.networkResponse;
@@ -410,14 +375,14 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
                                         sendData();
                                     }
                                 }).show();
-                        Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                        Toast.makeText(ServiceProviderEntry.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 } else {
                     String result = new String(networkResponse.data);
                     try {
                         JSONObject response = new JSONObject(result);
                         if (response.getString(result).matches("0")) {
-                            Toast.makeText(ServiceProviderData.this, "wrong email or password", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ServiceProviderEntry.this, "wrong email or password", Toast.LENGTH_LONG).show();
                         } else {
                             String status = response.getString("status");
                             String message = response.getString("message");
@@ -434,10 +399,10 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
                                         }).show();
                             } else if (networkResponse.statusCode == 401) {
                                 errorMessage = message + " Please login again";
-                                Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                                Toast.makeText(ServiceProviderEntry.this, errorMessage, Toast.LENGTH_LONG).show();
                             } else if (networkResponse.statusCode == 400) {
                                 errorMessage = message + " Check your inputs";
-                                Toast.makeText(ServiceProviderData.this, errorMessage, Toast.LENGTH_LONG).show();
+                                Toast.makeText(ServiceProviderEntry.this, errorMessage, Toast.LENGTH_LONG).show();
                             } else if (networkResponse.statusCode == 500) {
                                 errorMessage = message + " Something is getting wrong";
                                 Snackbar.make(scrollView, errorMessage, Snackbar.LENGTH_INDEFINITE)
@@ -463,9 +428,15 @@ public class ServiceProviderData extends AppCompatActivity implements View.OnCli
     }
 
     private void setSkillsView(List<SkillsResults> skillsResults) {
-        int skillsNumber = skillsResults.size();
 
-
+        int buttons = skillsResults.size();
+        for (int i = 0; i < buttons ; i++) {
+            RadioButton rbn = new RadioButton(this);
+            rbn.setId(i + 1000);
+            rbn.setText(skillsResults.get(i).getSkillAr());
+            rbn.callOnClick();
+            linearLayout.addView(rbn);
+        }
     }
 
     // Trigger new location updates at interval
