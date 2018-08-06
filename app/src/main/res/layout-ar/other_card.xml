@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/chat_back"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/pp"
+                android:layout_gravity="center"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/round"/>
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nora mostafa"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorAccent"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_gravity="end"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_col"/>
+
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:id="@+id/address"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="القاهرة-مدينة نصر"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/skills"/>
+
+
+                    <TextView
+                        android:textSize="12sp"
+                        android:id="@+id/skills"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/accent_border">
+
+                    <ImageView
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/light_chat"/>
+
+                    <TextView
+                        android:textColor="@color/colorAccent"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="@string/chat"
+                        />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/call"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/accent_border">
+
+                    <ImageView
+                        android:layout_marginStart="10dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/light_call"/>
+
+                    <TextView
+                        android:textColor="@color/colorAccent"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="@string/call"
+                        />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <ImageView
+        android:id="@+id/favIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/light_heart"
+        android:layout_gravity="end"
+        android:layout_margin="7dp"/>
+
+</FrameLayout>

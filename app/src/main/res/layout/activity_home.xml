@@ -28,6 +28,7 @@
         />
 
     <android.support.design.widget.TabLayout
+        app:tabTextAppearance="@style/Toolbar.TitleText"
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

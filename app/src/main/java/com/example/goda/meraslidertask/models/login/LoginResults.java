@@ -22,22 +22,22 @@ public class LoginResults {
     private String email;
     @SerializedName("Phone")
     @Expose
-    private Object phone;
+    private String phone;
     @SerializedName("Iqama_No")
     @Expose
     private String iqamaNo;
     @SerializedName("Address")
     @Expose
-    private Object address;
+    private String address;
     @SerializedName("City")
     @Expose
-    private Object city;
+    private String city;
     @SerializedName("BuildingInfo")
     @Expose
-    private Object buildingInfo;
+    private String buildingInfo;
     @SerializedName("Location")
     @Expose
-    private Object location;
+    private String location;
     @SerializedName("Email_Verified")
     @Expose
     private String emailVerified;
@@ -46,7 +46,7 @@ public class LoginResults {
     private String resetPassword;
     @SerializedName("Picture")
     @Expose
-    private Object picture;
+    private String picture;
     @SerializedName("Is_Available")
     @Expose
     private String isAvailable;
@@ -57,7 +57,7 @@ public class LoginResults {
     public LoginResults() {
     }
 
-    public LoginResults(String userID, String typeID, String userType, String fullname, String email, Object phone, String iqamaNo, Object address, Object city, Object buildingInfo, Object location, String emailVerified, String resetPassword, Object picture, String isAvailable, String registeredAt) {
+    public LoginResults(String userID, String typeID, String userType, String fullname, String email, String phone, String iqamaNo, String address, String city, String buildingInfo, String location, String emailVerified, String resetPassword, String picture, String isAvailable, String registeredAt) {
         super();
         this.userID = userID;
         this.typeID = typeID;
@@ -117,11 +117,11 @@ public class LoginResults {
         this.email = email;
     }
 
-    public Object getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Object phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -133,35 +133,35 @@ public class LoginResults {
         this.iqamaNo = iqamaNo;
     }
 
-    public Object getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Object address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public Object getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(Object city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public Object getBuildingInfo() {
+    public String getBuildingInfo() {
         return buildingInfo;
     }
 
-    public void setBuildingInfo(Object buildingInfo) {
+    public void setBuildingInfo(String buildingInfo) {
         this.buildingInfo = buildingInfo;
     }
 
-    public Object getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(Object location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
@@ -181,11 +181,11 @@ public class LoginResults {
         this.resetPassword = resetPassword;
     }
 
-    public Object getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(Object picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 

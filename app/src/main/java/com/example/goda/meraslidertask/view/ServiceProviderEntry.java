@@ -97,8 +97,8 @@ public class ServiceProviderEntry extends AppCompatActivity implements View.OnCl
     private static final String API = "http://mera.live/api/user/user_details";
     private static final String SKILLS_API = "http://mera.live/api/codedecode/skills";
     private LocationRequest mLocationRequest;
-    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
-    private long FASTEST_INTERVAL = 2000; /* 2 sec */
+    private long UPDATE_INTERVAL = 10 * 1000;  /* _10 secs */
+    private long FASTEST_INTERVAL = 2000; /* address sec */
     LocationManager locationManager;
     double longitude, latitude;
     private List<String> currentLatAndLong = new ArrayList<>();

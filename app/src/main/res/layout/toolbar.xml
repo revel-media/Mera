@@ -6,6 +6,7 @@
     android:background="@color/colorPrimary"
     android:elevation="4dp"
     android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/AlertDialog.AppCompat.Light">
+    app:popupTheme="@style/AlertDialog.AppCompat.Light"
+    app:titleTextAppearance="@style/Toolbar.TitleText">
 
 </android.support.v7.widget.Toolbar>

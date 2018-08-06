@@ -53,13 +53,57 @@ public class ClientHome extends AppCompatActivity {
 
             }
         });
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:
+                        tab.setIcon(R.drawable.female);
+                        break;
+                    case 1:
+                        tab.setIcon(R.drawable.dark_heart);
+                        break;
+                    case 2:
+                        tab.setIcon(R.drawable.dark_chat);
+                        break;
+                    case 3:
+                        tab.setIcon(R.drawable.users);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:
+                        tab.setIcon(R.drawable.light_female);
+                        break;
+                    case 1:
+                        tab.setIcon(R.drawable.light_heart);
+                        break;
+                    case 2:
+                        tab.setIcon(R.drawable.light_chat);
+                        break;
+                    case 3:
+                        tab.setIcon(R.drawable.users);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void setupTabIcons() {
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_launcher_background);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_launcher_background);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_launcher_background);
-        tabLayout.getTabAt(3).setIcon(R.drawable.ic_launcher_background);
+        tabLayout.getTabAt(0).setIcon(R.drawable.light_female);
+        tabLayout.getTabAt(1).setIcon(R.drawable.light_heart);
+        tabLayout.getTabAt(2).setIcon(R.drawable.light_chat);
+        tabLayout.getTabAt(3).setIcon(R.drawable.users);
     }
 
 

@@ -218,14 +218,14 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
 // Toast.makeText(RegistrationMainDataEntry.this, response, Toast.LENGTH_LONG).show();
 //                 Log.i("RIGISTERRESPONSE",response);
                 switch (accountType){
-                    case "1" :
+                    case "user_data" :
                         Intent intent = new Intent(RegistrationMainDataEntry.this, ClientData.class);
-                        PreferencesUtils.saveAccountType("1",RegistrationMainDataEntry.this);
+                        PreferencesUtils.saveAccountType("user_data",RegistrationMainDataEntry.this);
                         startActivity(intent);
                         break;
-                    case "2" :
+                    case "address" :
                         Intent intent2 = new Intent(RegistrationMainDataEntry.this, ServiceProviderEntry.class);
-                        PreferencesUtils.saveAccountType("2",RegistrationMainDataEntry.this);
+                        PreferencesUtils.saveAccountType("address",RegistrationMainDataEntry.this);
                         startActivity(intent2);
                         break;
                     default:

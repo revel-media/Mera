@@ -7,10 +7,12 @@
     <color name="colorPrimary">#65a3c9</color>
     <color name="colorPrimaryDark">#65a3c8</color>
     <color name="colorAccent">#6a4a9d</color>
+    <color name="black">#000</color>
     <color name="labelsColor">#9b9b9b</color>
     <color name="buttonsTextColor">#fff</color>
     <color name="actvityBackgroundColor">#edefee</color>
     <color name="circleIcons">#9b9b9b</color>
     <color name="registerActivityBackground">#fbfbfc</color>
+    <color name="white">#fff</color>
 
 </resources>

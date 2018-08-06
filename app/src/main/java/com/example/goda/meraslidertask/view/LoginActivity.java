@@ -1,44 +1,47 @@
 package com.example.goda.meraslidertask.view;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
-import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.goda.meraslidertask.R;
+import com.example.goda.meraslidertask.application.AppConfig;
 import com.example.goda.meraslidertask.models.login.Login;
 import com.example.goda.meraslidertask.models.login.LoginResults;
-import com.example.goda.meraslidertask.utils.PreferencesUtils;
-
+import com.facebook.FacebookSdk;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+//import com.facebook.FacebookSdk;
+//import com.facebook.appevents.AppEventsLogger;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,10 +53,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button login_btn;
     @BindView(R.id.register_btn)
     Button register_btn;
-    @BindView(R.id.login_relativelayout)
-    RelativeLayout relativeLayout;
     @BindView(R.id.forgot_password)
-    TextView changePassword_tv;
+    TextView forgot_password;
 
 
     private RequestQueue requestQueue ;
@@ -63,9 +64,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Gson gson;
     private LoginResults loginResults;
     private String account_type;
-    private String json;
-    private String userId;
-
+//    private GoogleApiClient googleApiClient;
+//    private static final int GoogleLoginRequest = 777;
 
 
     @Override
@@ -78,8 +78,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         login_btn.setOnClickListener(this);
         register_btn.setOnClickListener(this);
-        changePassword_tv.setOnClickListener(this);
 
+//
+//        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+//        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+//                .build();
 
         // Volley Request and Gson
         requestQueue = Volley.newRequestQueue(this);
@@ -97,11 +103,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(LoginActivity.this, RegisterationConditions.class);
             startActivity(intent);
 
-        }else if (view == changePassword_tv){
-            Intent intent = new Intent(LoginActivity.this, ChangePassword.class);
-            startActivity(intent);
         }
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == GoogleLoginRequest){
+//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//            handleSignInResult(result);
+//        }
+//    }
+//
+//    private void handleSignInResult(GoogleSignInResult result) {
+//        if (result.isSuccess()){
+//            goMainScreen();
+//        }else {
+//            Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_LONG).show();
+//        }
+//    }
+//
+//    private void goMainScreen() {
+//        Intent intent = new Intent(LoginActivity.this,GoogleSignInMainScreen.class);
+//        startActivity(intent);
+//    }
 
     private void sendData() {
 
@@ -109,13 +134,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(String response) {
 //                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
-
                 login = gson.fromJson(response, Login.class);
                 if (login != null){
-                    userId = login.getResult().getUserID();
-                    PreferencesUtils.saveId(userId, LoginActivity.this);
                     loginResults = login.getResult();
                     account_type = loginResults.getTypeID();
+                    getSharedPreferences(AppConfig.SHARED_PREFRENCE_NAME, MODE_PRIVATE)
+                            .edit().putString(AppConfig.SHARED_USER_ID, loginResults.getUserID()).apply();
                     if (account_type.matches("1")){
                         Intent intent = new Intent(LoginActivity.this, ClientHome.class);
                         startActivity(intent);
@@ -124,92 +148,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         startActivity(intent);
                     }
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                NetworkResponse networkResponse = error.networkResponse;
-
-//                networkResponse = error.networkResponse;
-//                if (networkResponse != null && networkResponse.data != null) {
-//                    if (networkResponse. == 400) {
-//                        json = new String(networkResponse.data);
-//                        json = trimMessage(json, "message");
-//                        if (json != null) displayMessage(json);
-//
-//                    }
-                    //Additional cases
-
-                    String errorMessage = "Unknown error";
-                    if (networkResponse == null) {
-                        if (error.getClass().equals(TimeoutError.class)) {
-                            errorMessage = "Request timeout";
-                            Snackbar.make(relativeLayout, errorMessage, Snackbar.LENGTH_INDEFINITE)
-                                    .setAction(R.string.retry, new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            sendData();
-                                        }
-                                    }).show();
-                            // Toast.makeText(GroupSettings.this, errorMessage, Toast.LENGTH_LONG).show();
-                        } else if (error.getClass().equals(NoConnectionError.class)) {
-                            errorMessage = "Failed to connect server";
-                            Snackbar.make(relativeLayout, errorMessage, Snackbar.LENGTH_INDEFINITE)
-                                    .setAction(R.string.retry, new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            sendData();
-                                        }
-                                    }).show();
-                            Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        String result = new String(networkResponse.data);
-                        try {
-                            JSONObject response = new JSONObject(result);
-                            if (response.getString(result).matches("0")) {
-                                Toast.makeText(LoginActivity.this, "wrong email or password", Toast.LENGTH_LONG).show();
-                            } else {
-                                String status = response.getString("status");
-                                String message = response.getString("message");
-                                Log.e("Error Status", status);
-                                Log.e("Error Message", message);
-                                if (networkResponse.statusCode == 404) {
-                                    errorMessage = "Resource not found";
-                                    Snackbar.make(relativeLayout, errorMessage, Snackbar.LENGTH_INDEFINITE)
-                                            .setAction(R.string.retry, new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    sendData();
-                                                }
-                                            }).show();
-                                } else if (networkResponse.statusCode == 401) {
-                                    errorMessage = message + " Please login again";
-                                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                                } else if (networkResponse.statusCode == 400) {
-                                    errorMessage = message + " Check your inputs";
-                                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                                } else if (networkResponse.statusCode == 500) {
-                                    errorMessage = message + " Something is getting wrong";
-                                    Snackbar.make(relativeLayout, errorMessage, Snackbar.LENGTH_INDEFINITE)
-                                            .setAction(R.string.retry, new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    sendData();
-                                                }
-                                            }).show();
-                                }
-                            }
-                        }catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    //Additional cases
-                    Log.i("Error", errorMessage);
-                    error.printStackTrace();
-                }
+                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+            }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -221,25 +166,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
         requestQueue.add(stringRequest);
-    }
-
-    public String trimMessage(String json, String key){
-        String trimmedString = null;
-
-        try{
-            JSONObject obj = new JSONObject(json);
-            trimmedString = obj.getString(key);
-        } catch(JSONException e){
-            e.printStackTrace();
-            return null;
-        }
-
-        return trimmedString;
-    }
-
-    //Somewhere that has access to a context
-    public void displayMessage(String toastString){
-        Toast.makeText(LoginActivity.this, toastString, Toast.LENGTH_LONG).show();
     }
 
 }

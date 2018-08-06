@@ -18,9 +18,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
         PreferencesUtils.deleteEmail(this);
         //Splash screen handler
         new Handler().postDelayed(new Runnable() {
