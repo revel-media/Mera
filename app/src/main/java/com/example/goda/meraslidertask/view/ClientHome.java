@@ -5,6 +5,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.goda.meraslidertask.R;
 import com.example.goda.meraslidertask.adapter.HomePagerAdapter;
@@ -14,10 +17,28 @@ import butterknife.ButterKnife;
 
 public class ClientHome extends AppCompatActivity {
 
-    @BindView(R.id.toolbar)Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
+
     @BindView(R.id.viewpager)
     ViewPager viewPager;
-    @BindView(R.id.sliding_tabs)TabLayout tabLayout;
+
+    @BindView(R.id.sliding_tabs)
+    TabLayout tabLayout;
+
+    @BindView(R.id.titleText)
+    TextView title;
+
+    @BindView(R.id.searchIcon)
+    ImageView search;
+
+    @BindView(R.id.mapIcon)
+    ImageView map;
+
+    @BindView(R.id.filterIcon)
+    ImageView filter;
+
+
     private HomePagerAdapter homePagerAdapter;
     private String [] titles = {"المساعدات", "المحادثات","مفضلتى" , "حسابى"};
 
@@ -27,10 +48,13 @@ public class ClientHome extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(R.string.HomeActivityLabel);
+
+
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setTitle(R.string.HomeActivityLabel);
+        //getSupportActionBar().setCustomView(R.layout.assist_toolbar);
 
         homePagerAdapter = new HomePagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(homePagerAdapter);
@@ -40,7 +64,12 @@ public class ClientHome extends AppCompatActivity {
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                getSupportActionBar().setTitle(titles[position]);
+                //getSupportActionBar().setTitle(titles[position]);
+
+//                if (position < 2){
+//                    configActionBar(true, titles[position]);
+//                    configActionBar(true, titles[position]);
+//                }
             }
 
             @Override
@@ -61,15 +90,19 @@ public class ClientHome extends AppCompatActivity {
                 switch (tab.getPosition()){
                     case 0:
                         tab.setIcon(R.drawable.female);
+                        configActionBar(true, titles[tab.getPosition()]);
                         break;
                     case 1:
-                        tab.setIcon(R.drawable.dark_heart);
+                        tab.setIcon(R.drawable.dark_chat);
+                        configActionBar(false, titles[tab.getPosition()]);
                         break;
                     case 2:
-                        tab.setIcon(R.drawable.dark_chat);
+                        tab.setIcon(R.drawable.dark_heart);
+                        configActionBar(true, titles[tab.getPosition()]);
                         break;
                     case 3:
                         tab.setIcon(R.drawable.users);
+                        configActionBar(false, titles[tab.getPosition()]);
                         break;
                 }
             }
@@ -81,10 +114,10 @@ public class ClientHome extends AppCompatActivity {
                         tab.setIcon(R.drawable.light_female);
                         break;
                     case 1:
-                        tab.setIcon(R.drawable.light_heart);
+                        tab.setIcon(R.drawable.light_chat);
                         break;
                     case 2:
-                        tab.setIcon(R.drawable.light_chat);
+                        tab.setIcon(R.drawable.light_heart);
                         break;
                     case 3:
                         tab.setIcon(R.drawable.users);
@@ -104,6 +137,26 @@ public class ClientHome extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.light_heart);
         tabLayout.getTabAt(2).setIcon(R.drawable.light_chat);
         tabLayout.getTabAt(3).setIcon(R.drawable.users);
+    }
+
+    private void configActionBar(Boolean show, String titleStr){
+        //View header = getSupportActionBar().getCustomView();
+//        TextView title = header.findViewById(R.id.titleText);
+//        ImageView search = header.findViewById(R.id.searchIcon);
+//        ImageView map = header.findViewById(R.id.mapIcon);
+//        ImageView filter = header.findViewById(R.id.filterIcon);
+
+        title.setText(titleStr);
+
+        if (show){
+            search.setVisibility(View.VISIBLE);
+            map.setVisibility(View.VISIBLE);
+            filter.setVisibility(View.VISIBLE);
+        } else {
+            search.setVisibility(View.GONE);
+            map.setVisibility(View.GONE);
+            filter.setVisibility(View.GONE);
+        }
     }
 
 

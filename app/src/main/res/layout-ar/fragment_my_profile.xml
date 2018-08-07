@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.MyProfile">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -125,9 +124,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:layout_marginTop="3dp"
                             android:id="@+id/userInfoText"
                             android:layout_marginBottom="10dp"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/client_info"
                             android:textColor="@color/black"
@@ -223,9 +223,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:layout_marginTop="3dp"
                             android:id="@+id/userAddressText"
                             android:layout_marginBottom="10dp"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/addressLabel"
                             android:textColor="@color/black"
@@ -309,7 +310,7 @@
                         android:background="@drawable/dummy_message"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/about_mera"
                         android:textColor="@color/black"
@@ -352,7 +353,7 @@
                         android:background="@drawable/faq"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/common_quest"
                         android:textColor="@color/black"
@@ -395,7 +396,7 @@
                         android:background="@drawable/mail"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/comm_note"
                         android:textColor="@color/black"

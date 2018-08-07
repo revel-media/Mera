@@ -322,10 +322,10 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         requestQueue.add(stringRequest);
     }
 
-    public class getToken extends FirebaseInstanceIdService {
+    public static class getToken extends FirebaseInstanceIdService {
         @Override
         public void onTokenRefresh() {
-             refreshedToken = FirebaseInstanceId.getInstance().getToken();
+             //refreshedToken = FirebaseInstanceId.getInstance().getToken();
         }
     }
 }

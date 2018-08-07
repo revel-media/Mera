@@ -61,7 +61,7 @@
     <string name="cityValidationError"> المدينة غير صحيحه</string>
     <string name="client_info">بيانات العميل</string>
     <string name="home_address">عنوان المنزل</string>
-    <string name="about_mera">عم تطبيق ميرا Mera</string>
+    <string name="about_mera">عن تطبيق ميرا Mera</string>
     <string name="common_quest">الاسئلة الشائعة</string>
     <string name="comm_note">التواصل و الملاحظات</string>
     <string name="logout">تسجيل الخروج من التطبيق</string>
