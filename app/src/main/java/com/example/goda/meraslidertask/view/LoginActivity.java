@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     addLocation();
 
                     if (account_type.matches("1")){
-                        Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, ClientHome.class);
                         startActivity(intent);
                     }else if (account_type.matches("2")){
                         Intent intent = new Intent(LoginActivity.this, ServiceProviderHome.class);

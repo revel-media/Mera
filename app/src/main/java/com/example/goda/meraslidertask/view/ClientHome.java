@@ -17,7 +17,7 @@ import com.example.goda.meraslidertask.utils.MapsService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ClientHome extends AppCompatActivity {
+public class ClientHome extends AppCompatActivity implements View.OnClickListener{
 
 //    @BindView(R.id.toolbar)
 //    Toolbar toolbar;
@@ -49,6 +49,7 @@ public class ClientHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        map.setOnClickListener(this);
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -163,4 +164,9 @@ public class ClientHome extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(ClientHome.this, MapsActivity.class);
+        startActivity(intent);
+    }
 }

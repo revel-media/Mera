@@ -51,12 +51,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+//        mMap.setMinZoomPreference(6.0f);
+//        mMap.setMaxZoomPreference(21.0f);
+//        mMap.animateCamera( CameraUpdateFactory.zoomTo( 7.0f ) );
+//        Location location = new Location(Double.valueOf(PreferencesUtils.getLat(MapsActivity.this), Double.valueOf(PreferencesUtils.getLng(MapsActivity.this));
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( location.getLatitude(), location.getLongitude() ), 12.0f));
+//        // Add a marker in Sydney and move the camera
         // Add a marker in Sydney and move the camera
         LatLng MyCurrentPlace = new  LatLng(Double.valueOf(PreferencesUtils.getLat(MapsActivity.this)), Double.valueOf(PreferencesUtils.getLng(MapsActivity.this)));
         mMap.addMarker(new MarkerOptions().position(new LatLng(Double.valueOf(PreferencesUtils.getLat(MapsActivity.this))
         , Double.valueOf(PreferencesUtils.getLng(MapsActivity.this)))).title(PreferencesUtils.getName(MapsActivity.this)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(MyCurrentPlace));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }
 
 
@@ -86,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 Toast.makeText(MapsActivity.this, "user id " + String.valueOf(user.getUserId()), Toast.LENGTH_LONG).show();
 
                                 double distance = acos(sin(PI * user.getLat() / 180.0) * sin(PI * myLat / 180.0) + cos(PI * user.getLat() / 180.0) * cos(PI * myLat / 180.0) * cos(PI * user.getLng() / 180.0 - PI * myLng / 180.0)) * 6371;
-                                if (distance <= 5000.0) {
+                                if (distance <= 200.0) {
                                     LatLng MyCurrentPlace = new LatLng(Double.valueOf(PreferencesUtils.getLat(MapsActivity.this)), Double.valueOf(PreferencesUtils.getLng(MapsActivity.this)));
                                     mMap.addMarker(new MarkerOptions().position(new LatLng(user.getLat()
                                             , user.getLng())).title(user.getName()));
