@@ -15,9 +15,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -103,6 +104,8 @@ public class ServiceProviderEntry extends AppCompatActivity implements View.OnCl
     double longitude, latitude;
     private List<String> currentLatAndLong = new ArrayList<>();
     private List<SkillsResults> skillsResults = new ArrayList<>();
+    private List<Integer> checkBoxsId = new ArrayList<>();
+    private List<Integer> selectedCheckedBox = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,9 +212,6 @@ public class ServiceProviderEntry extends AppCompatActivity implements View.OnCl
             @Override
             public void onResponse(String response) {
 
-                //saving user data in sharedpreferences
-                PreferencesUtils.saveEmail(address_tv.getText().toString(), ServiceProviderEntry.this);
-                PreferencesUtils.saveName(buildingName.getText().toString(), ServiceProviderEntry.this);
                 Intent intent = new Intent(ServiceProviderEntry.this, TheEnd.class);
                 startActivity(intent);
             }
@@ -307,18 +307,18 @@ public class ServiceProviderEntry extends AppCompatActivity implements View.OnCl
 
                 Map<String, String> params = new HashMap<>();
 
-
                 params.put("user_id", PreferencesUtils.getid(ServiceProviderEntry.this));
                 params.put("addressTv", address_tv.getText().toString());
                 params.put("city", choosedcity);
                 params.put("building_info", buildingName.getText().toString());
 
                 //converting ArrayList to String
-                String skills = gson.toJson(choosedSkiils);
+                String skills = gson.toJson(selectedCheckedBox);
                 params.put("skill_ids", skills);
 
                 String location = gson.toJson(currentLatAndLong);
                 params.put("location", location);
+
                 return params;
             }
         };
@@ -432,11 +432,19 @@ public class ServiceProviderEntry extends AppCompatActivity implements View.OnCl
 
         int buttons = skillsResults.size();
         for (int i = 0; i < buttons ; i++) {
-            RadioButton rbn = new RadioButton(this);
-            rbn.setId(i + 1000);
+            final CheckBox rbn = new CheckBox(this);
+            int id = i;
+            rbn.setId(i);
             rbn.setText(skillsResults.get(i).getSkillAr());
-            rbn.callOnClick();
             linearLayout.addView(rbn);
+            rbn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    rbn.setChecked(isChecked);
+                    selectedCheckedBox.add(rbn.getId());
+                }
+            });
+            checkBoxsId.add(id);
         }
     }
 
@@ -460,13 +468,7 @@ public class ServiceProviderEntry extends AppCompatActivity implements View.OnCl
         // new Google API SDK v11 uses getFusedLocationProviderClient(this)
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
         getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {

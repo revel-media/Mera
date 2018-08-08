@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PreferencesUtils.deleteEmail(this);
+        PreferencesUtils.deleteId(this);
         //Splash screen handler
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
-                String email = PreferencesUtils.getEmail(MainActivity.this);
-                if (email != null && email != ""){
+                String id = PreferencesUtils.getid(MainActivity.this);
+                if (id != null && id != ""){
                     Toast.makeText(MainActivity.this,"already logged in", Toast.LENGTH_LONG).show();
                     Intent intent =new Intent(MainActivity.this, ClientHome.class);
                     startActivity(intent);

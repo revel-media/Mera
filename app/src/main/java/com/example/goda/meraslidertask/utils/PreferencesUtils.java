@@ -172,5 +172,19 @@ public class PreferencesUtils {
         preferences.edit().clear().commit();
     }
 
+    public static void  deleteId (Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().clear().commit();
+    }
+
+    protected static void  updateLatAndLng(Context context, String lat, String lng){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString(Constants.KEY_LAT, lat);
+        editor.putString(Constants.KEY_LAT, lng);
+
+    }
+
 
 }

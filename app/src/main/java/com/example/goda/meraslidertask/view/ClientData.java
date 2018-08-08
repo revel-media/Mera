@@ -180,7 +180,6 @@ public class ClientData extends AppCompatActivity implements AdapterView.OnItemS
             public void onResponse(String response) {
 
                 //saving user data in sharedpreferences
-                PreferencesUtils.saveEmail(addressTv.getText().toString(), ClientData.this);
                 Intent intent = new Intent(ClientData.this, MapsActivity.class);
                 startActivity(intent);
 
@@ -337,8 +336,6 @@ public class ClientData extends AppCompatActivity implements AdapterView.OnItemS
         longitude=location.getLongitude();
 //        Toast.makeText(ClientData.this, String.valueOf(latitude+longitude),Toast.LENGTH_LONG).show();
         currentLatAndLong.add(String.valueOf(latitude));
-        PreferencesUtils.saveLat(String.valueOf(latitude),ClientData.this);
         currentLatAndLong.add(String.valueOf(longitude));
-        PreferencesUtils.saveLng(String.valueOf(longitude),ClientData.this);
     }
 }

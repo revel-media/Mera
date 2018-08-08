@@ -76,7 +76,14 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".view.ServiceProviderEntry" />
         <activity android:name=".view.ChangePassword" />
-        <activity android:name=".view.ChatActivity"></activity>
+        <activity android:name=".view.ChatActivity" />
+
+        <service
+            android:name=".utils.MapsService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".view.UpdateUserProfile"></activity>
     </application>
 
 </manifest>

@@ -94,5 +94,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="passwordEmpty">يجب إدخال الرقم السري</string>
     <string name="changePassword">تعديل كلمة السر</string>
+    <string name="newPassword">new password</string>
 
 </resources>

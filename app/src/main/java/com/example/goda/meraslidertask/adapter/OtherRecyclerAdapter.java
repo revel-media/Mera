@@ -141,7 +141,7 @@ public class OtherRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         public void bind(final Conversation conversation){
             if (conversation.getAddress() != null){
-                address.setText(conversation.getAddress());
+//                address.setText(conversation.getAddress());
             }
 
             if (conversation.getUsername() != null){

@@ -26,6 +26,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.jakewharton:butterknife:8.8.1'
 //  implementation 'com.google.firebase:firebase-messaging:_11.8.0'
+    implementation 'com.google.firebase:firebase-database:11.8.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //ButterKnife

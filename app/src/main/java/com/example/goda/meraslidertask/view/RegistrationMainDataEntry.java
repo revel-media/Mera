@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.example.goda.meraslidertask.utils.PreferencesUtils;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.firebase.iid.zzw;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -70,15 +72,15 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
     private RequestQueue requestQueue;
     private StringRequest stringRequest;
     private Gson gson;
-    private  Register register;
+    private Register register;
     private String name;
     private String phone;
     private String email;
     private String password;
     private String deviceToken;
-    private String terms ;
+    private String terms;
     private int UserId;
-    private String refreshedToken;
+    private String refreshedTokenid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +89,8 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         ButterKnife.bind(this);
 
         Bundle extras = getIntent().getExtras();
-        if (extras!=null){
-            terms= extras.get("terms").toString();
+        if (extras != null) {
+            terms = extras.get("terms").toString();
         }
 
         setSupportActionBar(toolbar);
@@ -99,7 +101,7 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         next.setOnClickListener(this);
         FirebaseApp.initializeApp(this);
         deviceToken = FirebaseInstanceId.getInstance().getToken();
-//        Toast.makeText(this, deviceToken, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, deviceToken, Toast.LENGTH_LONG).show();
 
         // Volley Request and Gson
         requestQueue = Volley.newRequestQueue(this);
@@ -128,14 +130,14 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
     }
 
     private boolean validatePassword(String password, String confirmPassword) {
-        if (password == null || password == ""){
-           return false;
-        }else if (password.equals(confirmPassword)) {
-                 this.password = password;
-                 return true;
-             } else {
-                 return false;
-             }
+        if (password == null || password == "") {
+            return false;
+        } else if (password.equals(confirmPassword)) {
+            this.password = password;
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -166,12 +168,10 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
             if (validateName(name_et.getText().toString()) && validatePhoneNumber(phone_et.getText().toString()) &&
                     validateEmail(email_et.getText().toString()) &&
                     validatePassword(password_et.getText().toString(), confirmPassword_et.getText().toString())) {
-
-                if (accountType == null){
-
+//              Toast.makeText(RegistrationMainDataEntry.this, "data is correct",Toast.LENGTH_LONG).show();
+                if (TextUtils.isEmpty(accountType)) {
                     Toast.makeText(RegistrationMainDataEntry.this, "please choose account type", Toast.LENGTH_LONG).show();
-
-                }else {
+                } else {
                     sendData();
                 }
 
@@ -185,9 +185,9 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                     phone_et.requestFocus();
                 }
                 if (!validatePassword(password_et.getText().toString(), confirmPassword_et.getText().toString())) {
-                    if (password == null || password == ""){
+                    if (password == null || password == "") {
                         password_et.setError(getString(R.string.passwordEmpty));
-                    }else {
+                    } else {
                         confirmPassword_et.setError(getString(R.string.passwordValidationError));
                         phone_et.requestFocus();
                     }
@@ -209,23 +209,22 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
 
                 register = gson.fromJson(response, Register.class);
 
-                if (register != null){
+                if (register != null) {
                     UserId = register.getResult().getUserId();
                 }
 
                 PreferencesUtils.saveId(String.valueOf(UserId), RegistrationMainDataEntry.this);
                 PreferencesUtils.saveName(name, RegistrationMainDataEntry.this);
-// Toast.makeText(RegistrationMainDataEntry.this, response, Toast.LENGTH_LONG).show();
 //                 Log.i("RIGISTERRESPONSE",response);
-                switch (accountType){
-                    case "user_data" :
+                switch (accountType) {
+                    case "user_data":
                         Intent intent = new Intent(RegistrationMainDataEntry.this, ClientData.class);
-                        PreferencesUtils.saveAccountType("user_data",RegistrationMainDataEntry.this);
+                        PreferencesUtils.saveAccountType("user_data", RegistrationMainDataEntry.this);
                         startActivity(intent);
                         break;
-                    case "address" :
+                    case "address":
                         Intent intent2 = new Intent(RegistrationMainDataEntry.this, ServiceProviderEntry.class);
-                        PreferencesUtils.saveAccountType("address",RegistrationMainDataEntry.this);
+                        PreferencesUtils.saveAccountType("address", RegistrationMainDataEntry.this);
                         startActivity(intent2);
                         break;
                     default:
@@ -236,7 +235,7 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(RegistrationMainDataEntry.this, String.valueOf(error), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegistrationMainDataEntry.this, String.valueOf(error), Toast.LENGTH_LONG).show();
                 NetworkResponse networkResponse = error.networkResponse;
 
                 String errorMessage = "Unknown error";
@@ -312,7 +311,7 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
                 params.put("phone", phone);
                 params.put("password", password);
                 params.put("terms", terms);
-                params.put("iqama_no", "x");
+                params.put("iqama_no", "5");
                 params.put("user_type", accountType);
                 params.put("mobile_id", deviceToken);
 
@@ -322,10 +321,10 @@ public class RegistrationMainDataEntry extends AppCompatActivity implements View
         requestQueue.add(stringRequest);
     }
 
-    public static class getToken extends FirebaseInstanceIdService {
+    public class getToken extends FirebaseInstanceIdService {
         @Override
         public void onTokenRefresh() {
-             //refreshedToken = FirebaseInstanceId.getInstance().getToken();
+            refreshedTokenid = FirebaseInstanceId.getInstance().getToken();
         }
     }
 }

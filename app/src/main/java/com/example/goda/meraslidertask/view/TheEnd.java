@@ -40,7 +40,7 @@ public class TheEnd extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.newUserTitle);
 
         accountType = PreferencesUtils.getAccountType(TheEnd.this);
-        if (accountType.matches("1")){
+        if (accountType.equals("1")){
             userAccountType.setText("بيانات العميل");
         }else {
 

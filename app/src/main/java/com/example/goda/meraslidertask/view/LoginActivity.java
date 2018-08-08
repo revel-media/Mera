@@ -1,16 +1,18 @@
 package com.example.goda.meraslidertask.view;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,29 +21,27 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.goda.meraslidertask.R;
-import com.example.goda.meraslidertask.application.AppConfig;
+import com.example.goda.meraslidertask.models.UserLocation;
 import com.example.goda.meraslidertask.models.login.Login;
 import com.example.goda.meraslidertask.models.login.LoginResults;
-import com.facebook.FacebookSdk;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.example.goda.meraslidertask.utils.PreferencesUtils;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-//import com.facebook.FacebookSdk;
-//import com.facebook.appevents.AppEventsLogger;
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
+
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.register_btn)
     Button register_btn;
     @BindView(R.id.forgot_password)
-    TextView forgot_password;
+    TextView forgotPassword;
 
 
     private RequestQueue requestQueue ;
@@ -64,8 +64,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Gson gson;
     private LoginResults loginResults;
     private String account_type;
-//    private GoogleApiClient googleApiClient;
-//    private static final int GoogleLoginRequest = 777;
+    LocationManager locationManager;
+    double longitude, latitude;
+    private LocationRequest mLocationRequest;
+    private long UPDATE_INTERVAL = 10 * 1000;  /* _10 secs */
+    private long FASTEST_INTERVAL = 2000; /* address sec */
+    DatabaseReference databaseReference ;
+    private int userId;
+    private String name;
 
 
     @Override
@@ -78,14 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         login_btn.setOnClickListener(this);
         register_btn.setOnClickListener(this);
-
-//
-//        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
-//        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this)
-//                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
-//                .build();
+        forgotPassword.setOnClickListener(this);
 
         // Volley Request and Gson
         requestQueue = Volley.newRequestQueue(this);
@@ -93,6 +92,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         gson = gsonBuilder.create();
         login = new Login();
 
+        //get user location
+        locationManager = (LocationManager) getSystemService(LoginActivity.this.LOCATION_SERVICE);
+        startLocationUpdates();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("userLocation");
     }
 
     @Override
@@ -102,31 +106,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else if (view ==register_btn){
             Intent intent = new Intent(LoginActivity.this, RegisterationConditions.class);
             startActivity(intent);
-
+        }else if(view ==forgotPassword){
+            Intent intent = new Intent(LoginActivity.this, ChangePassword.class);
+            startActivity(intent);
         }
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == GoogleLoginRequest){
-//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-//            handleSignInResult(result);
-//        }
-//    }
-//
-//    private void handleSignInResult(GoogleSignInResult result) {
-//        if (result.isSuccess()){
-//            goMainScreen();
-//        }else {
-//            Toast.makeText(LoginActivity.this, "failed", Toast.LENGTH_LONG).show();
-//        }
-//    }
-//
-//    private void goMainScreen() {
-//        Intent intent = new Intent(LoginActivity.this,GoogleSignInMainScreen.class);
-//        startActivity(intent);
-//    }
 
     private void sendData() {
 
@@ -138,17 +122,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (login != null){
                     loginResults = login.getResult();
                     account_type = loginResults.getTypeID();
-                    getSharedPreferences(AppConfig.SHARED_PREFRENCE_NAME, MODE_PRIVATE)
-                            .edit().putString(AppConfig.SHARED_USER_ID, loginResults.getUserID()).apply();
+                    userId = Integer.valueOf(loginResults.getUserID());
+                    name = loginResults.getFullname();
+
+                    //save data in sharedPreferences
+                    PreferencesUtils.saveId(String.valueOf(userId), LoginActivity.this);
+                    PreferencesUtils.saveName(name, LoginActivity.this);
+
+                    // add user Location to firebase
+                    addLocation();
+
                     if (account_type.matches("1")){
-                        Intent intent = new Intent(LoginActivity.this, ClientHome.class);
+                        Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                         startActivity(intent);
                     }else if (account_type.matches("2")){
                         Intent intent = new Intent(LoginActivity.this, ServiceProviderHome.class);
                         startActivity(intent);
                     }
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -168,4 +159,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         requestQueue.add(stringRequest);
     }
 
+    private void addLocation(){
+       final UserLocation newuserLocation = new UserLocation(latitude, longitude, userId, name );
+       databaseReference.push();
+       databaseReference.child(String.valueOf(userId)).setValue(newuserLocation);
+    }
+
+    // Trigger new location updates at interval
+    protected void startLocationUpdates() {
+
+        // Create the location request to start receiving updates
+        mLocationRequest = new LocationRequest().create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
+        // Create LocationSettingsRequest object using location request
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        LocationSettingsRequest locationSettingsRequest = builder.build();
+
+        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+        settingsClient.checkLocationSettings(locationSettingsRequest);
+
+        // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        onLocationChanged(locationResult.getLastLocation());
+                    }
+                },
+                Looper.myLooper());
+    }
+
+    public void onLocationChanged(Location location) {
+        // New location has now been determined
+        latitude=location.getLatitude();
+        longitude=location.getLongitude();
+        PreferencesUtils.saveLat(String.valueOf(latitude),LoginActivity.this);
+        PreferencesUtils.saveLng(String.valueOf(longitude),LoginActivity.this);
+    }
 }

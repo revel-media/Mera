@@ -1,5 +1,6 @@
 package com.example.goda.meraslidertask.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.goda.meraslidertask.R;
 import com.example.goda.meraslidertask.adapter.HomePagerAdapter;
+import com.example.goda.meraslidertask.utils.MapsService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,13 +50,14 @@ public class ClientHome extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-
-
-        //setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         //getSupportActionBar().setTitle(R.string.HomeActivityLabel);
         //getSupportActionBar().setCustomView(R.layout.assist_toolbar);
+
+        // start MapsService
+        Intent intent = new Intent(this,MapsService.class);
+        startService(intent);
 
         homePagerAdapter = new HomePagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(homePagerAdapter);

@@ -85,7 +85,7 @@ public class RegisterationConditions extends AppCompatActivity implements View.O
             }
         }else if (view == next){
             if(checked) {
-                Intent intent = new Intent(RegisterationConditions.this, RegistrationMainDataEntry.class);
+                Intent intent = new Intent(RegisterationConditions.this, ServiceProviderEntry.class);
                 intent.putExtra("terms",1);
                 startActivity(intent);
             }else {
